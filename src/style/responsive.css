@@ -1,0 +1,41 @@
+/* Default styles for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  table, th, td {
+    border: 1px solid #ccc;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  /* Default styles for the navbar */
+  .navbar {
+    background-color: #008080;
+    color: #fff;
+    padding: 10px;
+    
+  }
+  
+  /* Media query for screens smaller than 768px (typical smartphones) */
+  @media screen and (max-width: 768px) {
+    /* Responsive table styles */
+    table {
+      font-size: 14px; /* Decrease font size for smaller screens */
+    }
+  
+    th, td {
+      padding: 6px; /* Decrease cell padding for smaller screens */
+    }
+  
+    /* Responsive navbar styles */
+    .navbar {
+      padding: 5px; /* Decrease padding for smaller screens */
+    }
+  }
+  
