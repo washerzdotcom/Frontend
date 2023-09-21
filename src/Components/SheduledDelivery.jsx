@@ -30,6 +30,7 @@ const SheduledDelivery = ({type}) => {
     price: 0,
     id: "",
   });
+  const [priceConfig, setPriceConfig] = useState({});
 
   const handledelete = async (id) => {
     try {
@@ -115,9 +116,9 @@ const SheduledDelivery = ({type}) => {
                               onClick={() => {
                                 setShowSuc(!showSuc);
                                 setCurrObj({
-                                  contactNo: user.whatsappNo,
-                                  customerName: user.customerName,
-                                  address: user.address,
+                                  contactNo: user.Contact,
+                                  customerName: user.Name,
+                                  address: user.Address,
                                   items: [],
                                   price: 0,
                                   id: user._id,
@@ -148,6 +149,8 @@ const SheduledDelivery = ({type}) => {
                 setBillShow={setBillShow}
                 setTotal={setTotal}
                 setCurrObj={setCurrObj}
+                setPriceConfig={setPriceConfig}
+              
               />
             )}
             {billShow && (
@@ -157,6 +160,7 @@ const SheduledDelivery = ({type}) => {
                 total={total}
                 currObj={currObj}
                 handledelete={handledelete}
+                priceConfig={priceConfig}
               />
             )}
           </div>

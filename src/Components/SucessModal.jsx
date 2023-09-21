@@ -5,8 +5,9 @@ import NestedDropdown from './MultiSelector';
 import { Card, Table } from 'react-bootstrap';
 import '../App.css';
 import { toast, ToastContainer } from 'react-toastify';
+import ItemTable from './ItemTable';
 
-function Example({ showSuc, setShowSuc, setBillShow, setTotal, setCurrObj }) {
+function Example({ showSuc, setShowSuc, setBillShow, setTotal, setCurrObj, setPriceConfig }) {
   const [menuItems, setMenuItems] = useState([]);
 
   const handleClose = () => setShowSuc(false);
@@ -34,6 +35,8 @@ function Example({ showSuc, setShowSuc, setBillShow, setTotal, setCurrObj }) {
     return acc + price;
   }, 0);
 
+  console.log("hii===->> ", priceConfig)
+
   return (
     <>
       <Modal show={showSuc} onHide={handleClose} animation={false}>
@@ -44,51 +47,7 @@ function Example({ showSuc, setShowSuc, setBillShow, setTotal, setCurrObj }) {
           <Card>
             <Card.Body>
               <Card.Title>Added Items</Card.Title>
-              <Table striped bordered hover responsive>
-                <thead>
-                  <tr>
-                    <th>Group</th>
-                    <th>Type</th>
-                    <th>WearType</th>
-                    <th>Weight/Quantity</th>
-                    <th>Price</th>
-                    <th>Remove Items</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {menuItems.length === 0 ? (
-                    <tr>
-                      <td colSpan="6">
-                        <b style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>No Data</b>
-                      </td>
-                    </tr>
-                  ) : (
-                    menuItems.map((item, index) => {
-                      console.log("this is item.price---> ", item.Price)
-                      let price = item.Price;
-                      if(item.wearType !== '-')
-                      {
-                        price = priceConfig[item.type] && priceConfig[item.type][item.wearType]
-                        ? item.weight * priceConfig[item.type][item.wearType]
-                        : 0;
-                      }
-
-                      return (
-                        <tr key={index}>
-                          <td>{item.group}</td>
-                          <td>{item.type}</td>
-                          <td>{item.wearType}</td>
-                          <td>{item.wearType === '-' ? `${item.weight} unit` : `${item.weight} kg`}</td>
-                          <td>&#x20B9;{price}</td>
-                          <td>
-                            <button className='btn btn-danger pl-5 d-flex justify-content-center' onClick={() => deleteTask(index)}>x</button>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </Table>
+              <ItemTable priceConfig={priceConfig} menuItems={menuItems} deleteTask={deleteTask}/>
             </Card.Body>
           </Card>
 
@@ -103,6 +62,7 @@ function Example({ showSuc, setShowSuc, setBillShow, setTotal, setCurrObj }) {
             setShowSuc(false);
             setTotal(total);
             setCurrObj((prev)=>{return {...prev, items: [...menuItems], price: total}})
+            setPriceConfig({...priceConfig})
           }}>
             Submit
           </Button>

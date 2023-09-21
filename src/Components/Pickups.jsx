@@ -4,6 +4,8 @@ import LiveDelivery from "./LiveDelivery";
 import Cancelled from "./Cancelled";
 import SheduledDelivery from "./SheduledDelivery";
 import { useState } from "react";
+import MannualPickup from "./MannualPickup";
+
 
 const Pickups = () => {
   const [activeTab, setActiveTab] = useState("Live");
@@ -29,10 +31,15 @@ const Pickups = () => {
         <Tab eventKey="Cancelled" title="Cancelled">
           {/* <Cancelled /> */}
         </Tab>
+        <Tab eventKey="Manual" title="Manual Pickup">
+          {/* <Cancelled /> */}
+          {/* <MannualPickup/> */}
+        </Tab>
       </Tabs>
       {activeTab === "Live" && <LiveDelivery />}
       {activeTab === "Scheduled" && <SheduledDelivery/>}
       {activeTab === "Cancelled" && <Cancelled />}
+      {activeTab === "Manual" && <MannualPickup />}
     </div>
   );
 };
