@@ -16,7 +16,7 @@
     "build": "^0.1.4",
     "framer-motion": "^10.16.1",
     "install": "^0.13.0",
-    "mdb-react-ui-kit": "^6.2.0",
+    "mdb-react-ui-kit": "^6.3.0",
     "moment": "^2.29.4",
     "rc-dropdown": "^4.1.0",
     "rc-menu": "^9.12.0",
