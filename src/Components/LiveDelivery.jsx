@@ -21,6 +21,7 @@ const LiveDelivery = () => {
   const [billShow, setBillShow] = useState(false);
   const [total, setTotal] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [priceConfig, setPriceConfig] = useState({});
 
   const [currObj, setCurrObj] = useState({
     contactNo: "",
@@ -140,6 +141,7 @@ const LiveDelivery = () => {
                 setBillShow={setBillShow}
                 setTotal={setTotal}
                 setCurrObj={setCurrObj}
+                setPriceConfig={setPriceConfig}
               />
             )}
             {billShow && (
@@ -149,6 +151,7 @@ const LiveDelivery = () => {
                 total={total}
                 currObj={currObj}
                 handledelete={handledelete}
+                priceConfig={priceConfig}
               />
             )}
           </div>

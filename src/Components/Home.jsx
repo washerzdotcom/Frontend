@@ -1,13 +1,10 @@
 import React from 'react'
-import MultiSelector from './MultiSelector.jsx';
-import HorizontalSlider from './Test.jsx';
-// import DropdownWithInput from './Test.jsx';
+import App from './Test';
 
 const Home = () => {
   return (
     <>
-    <HorizontalSlider/>
-    <div>This is Home</div>
+    <div><App/></div>
     </>
    
   )

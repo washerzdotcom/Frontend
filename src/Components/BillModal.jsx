@@ -1,31 +1,41 @@
 import React, { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Card, Modal } from "react-bootstrap";
 import { instance, pickupinstance } from "../config";
+import ItemTable from "./ItemTable";
 
-function BillModal({ billShow, setBillShow, total, currObj, handledelete }) {
-  const [dis,setdis] = useState(0);
+function BillModal({
+  billShow,
+  setBillShow,
+  total,
+  currObj,
+  handledelete,
+  priceConfig,
+}) {
+  const [dis, setdis] = useState(0);
   console.log("this is curr obj --> ", currObj);
+  const { contactNo, customerName, address } = currObj;
   const addOrder = async () => {
     try {
-      console.log("ewhguirehdghreuhgre---------------> ", currObj)
+      console.log("ewhguirehdghreuhgre---------------> ", currObj);
       const res = await pickupinstance.post(`/addOrder`, currObj);
-      const sendTemRes = await instance.post(`/sendTemplateMessage?whatsappNumber=${currObj.contactNo}`, 
-      {
-        template_name: "automated_collection_successfull",
-        broadcast_name: "automated_collection_successfull",
-        parameters: [
-          {
-            name: "name",
-            value: currObj.customerName
-          },
-          {
-            name: "total_Bill",
-            value: (total-total*(dis/100)).toFixed(2)
-          }
-        ]
-      }
-      )
-      console.log("thi is the sendTemRes---->> ", sendTemRes)
+      const sendTemRes = await instance.post(
+        `/sendTemplateMessage?whatsappNumber=${currObj.contactNo}`,
+        {
+          template_name: "automated_collection_successfull",
+          broadcast_name: "automated_collection_successfull",
+          parameters: [
+            {
+              name: "name",
+              value: currObj.customerName,
+            },
+            {
+              name: "total_Bill",
+              value: (total - total * (dis / 100)).toFixed(2),
+            },
+          ],
+        }
+      );
+      console.log("thi is the sendTemRes---->> ", sendTemRes);
       console.log("addOrder", res.data);
       handledelete(currObj.id);
     } catch (error) {
@@ -38,18 +48,74 @@ function BillModal({ billShow, setBillShow, total, currObj, handledelete }) {
         <Modal.Title>Your Total Bill</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div>
-        Total Bill is: &#x20B9;{total}
+        <h5>Customer Info:</h5>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            border: "2px solid black",
+            borderRadius: "5px",
+            padding: "20px",
+            marginBottom: "25px",
+          }}
+        >
+          <div>
+            <p>Name:</p>
+            <p>Contact:</p>
+            <p>Address:</p>
+          </div>
+          <div>
+            <p>{customerName}</p>
+            <p>{contactNo}</p>
+            <p>{address}</p>
+          </div>
         </div>
-        <div>
-          Discount : <input type={"number"} value={dis} onChange={(e)=>{
-            setdis(e.target.value)
-            currObj.price = (total-total*(e.target.value/100)).toFixed(2);
-            console.log("prceee", currObj.price)
-            }}/>
-        </div>
-        <div>
-        Discounted Bill is: &#x20B9;{(total-total*(dis/100)).toFixed(2)}
+        <h5>Added Items:</h5>
+        {currObj.items && (
+          <Card>
+          <Card.Body>
+          <ItemTable
+            priceConfig={priceConfig}
+            menuItems={currObj.items}
+            deleteTask={null}
+          />
+          </Card.Body>
+          </Card>
+        )}
+        <h5 style={{marginTop:"10px"}}>Billing Info:</h5>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            border: "2px solid black",
+            borderRadius: "5px",
+            padding: "20px",
+            marginBottom: "25px",
+          }}
+        >
+          <div>
+            <div style={{marginBottom:"2px"}}>Total Bill is:</div>
+            <div style={{marginBottom:"2px"}}>Discount :</div>
+            <div>Discounted Bill is: </div>
+          </div>
+          <div>
+            <div style={{marginBottom:"2px"}}> &#x20B9;{total}</div>
+            <div style={{marginBottom:"2px"}}>
+              <input
+                type={"number"}
+                value={dis}
+                onChange={(e) => {
+                  setdis(e.target.value);
+                  currObj.price = (
+                    total -
+                    total * (e.target.value / 100)
+                  ).toFixed(2);
+                  console.log("prceee", currObj.price);
+                }}
+              />
+            </div>
+            <div>&#x20B9;{(total - total * (dis / 100)).toFixed(2)}</div>
+          </div>
         </div>
       </Modal.Body>
       <Modal.Footer>

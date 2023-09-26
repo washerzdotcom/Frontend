@@ -179,6 +179,11 @@ function NestedDropdown({ menuItems, setMenuItems }) {
           children: [],
         },
         {
+          label: "Long Blazer",
+          Price: 350,
+          children: [],
+        },
+        {
           label: "Sweatshirt/Hoodie",
           Price: 250,
           children: [],
@@ -189,23 +194,73 @@ function NestedDropdown({ menuItems, setMenuItems }) {
           children: [],
         },
         {
-          label: "Saree",
+          label: "Heavy Saree",
           Price: 350,
           children: [],
         },
         {
-          label: "Lehnga",
-          Price: 200,
+          label: "Medium Saree",
+          Price: 300,
           children: [],
         },
         {
-          label: "Dress",
+          label: "Saree",
+          Price: 250,
+          children: [],
+        },
+        {
+          label: "Blouse",
+          Price: 80,
+          children: [],
+        },
+        {
+          label: "Heavy Blouse",
+          Price: 120,
+          children: [],
+        },
+        {
+          label: "Lehnga",
+          Price: 250,
+          children: [],
+        },
+        {
+          label: "Medium Lehnga",
           Price: 500,
           children: [],
         },
         {
-          label: "Evening Gown",
+          label: "Heavy Lehnga",
+          Price: 700,
+          children: [],
+        },
+        {
+          label: "Heavy Dress",
+          Price: 500,
+          children: [],
+        },
+        {
+          label: "Dress",
+          Price: 350,
+          children: [],
+        },
+        {
+          label: "Heavy Gown",
           Price: 300,
+          children: [],
+        },
+        {
+          label: "Gown",
+          Price: 200,
+          children: [],
+        },
+        {
+          label: "Dupatta",
+          Price: 80,
+          children: [],
+        },
+        {
+          label: "Heavy Dupatta",
+          Price: 100,
           children: [],
         },
         {
@@ -214,13 +269,48 @@ function NestedDropdown({ menuItems, setMenuItems }) {
           children: [],
         },
         {
+          label: "Shawl",
+          Price: 200,
+          children: [],
+        },
+        {
           label: "Sweater/Cardigan",
+          Price: 200,
+          children: [],
+        },
+        {
+          label: "Shrug",
           Price: 200,
           children: [],
         },
         {
           label: "Leather Jackets",
           Price: 450,
+          children: [],
+        },
+        {
+          label: "Belt",
+          Price: 150,
+          children: [],
+        },
+        {
+          label: "Leather Belt",
+          Price: 250,
+          children: [],
+        },
+        {
+          label: "Pillow Cover",
+          Price: 50,
+          children: [],
+        },
+        {
+          label: "Large Pillow",
+          Price: 100,
+          children: [],
+        },
+        {
+          label: "Small Pillow",
+          Price: 60,
           children: [],
         },
         {
