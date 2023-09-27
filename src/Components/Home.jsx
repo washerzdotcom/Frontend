@@ -1,10 +1,10 @@
 import React from 'react'
-import App from './Test';
+import BillCart from './BillCart';
 
 const Home = () => {
   return (
     <>
-    <div><App/></div>
+    <div><BillCart/></div>
     </>
    
   )
