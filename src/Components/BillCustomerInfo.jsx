@@ -7,8 +7,8 @@ const BillCustomerInfo = (currObj) => {
 
   return (
     <>
- <h5 style={{paddingLeft: '20px', paddingTop:'10px', paddingBottom:"10px"}}>Customer Info:</h5>
-        <div className="nametag"
+ {/* <h5 style={{paddingLeft: '20px', paddingTop:'10px', paddingBottom:"10px"}}>Customer Info:</h5> */}
+        <div
           style={{
             display: "flex",
             justifyContent: "space-around",
@@ -17,7 +17,7 @@ const BillCustomerInfo = (currObj) => {
             borderRadius: "5px",
             padding: "20px",
             marginBottom: "25px",
-            margin:"0px 20px",
+            margin:"10px",
           }}
         >
           <div>

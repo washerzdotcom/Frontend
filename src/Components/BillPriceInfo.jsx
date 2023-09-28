@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const BillPriceInfo = () => {
+const BillPriceInfo = ({total}) => {
+  const [value, setValue] = useState(0);
   return (
     <>
     <div style={{marginBottom:"50px"}}>
-   <h5 style={{paddingLeft: '20px', paddingTop:'10px', paddingBottom:"10px"}}>Billing Info:</h5>
+   {/* <h5 style={{paddingLeft: '20px', paddingTop:'10px', paddingBottom:"10px"}}>Billing Info:</h5> */}
    <div
           style={{
             display: "flex",
@@ -13,7 +14,7 @@ const BillPriceInfo = () => {
             borderRadius: "5px",
             padding: "20px",
             marginBottom: "25px",
-            margin:"0px 20px"
+            margin:"10px"
           }}
         >
           <div>
@@ -22,12 +23,13 @@ const BillPriceInfo = () => {
             <div>Final Bill : </div>
           </div>
           <div>
-            <div style={{marginBottom:"20px"}}> &#x20B9;{"1000"}</div>
+            <div style={{marginBottom:"20px"}}> &#x20B9;{total}</div>
             <div style={{marginBottom:"20px", border:"2px solid"}}>
               <input
                 type={"number"}
-                // value={dis}
+                // value={value}
                 onChange={(e) => {
+                  setValue(e.target.value*1)
                 //   setdis(e.target.value);
                 //   currObj.price = (
                 //     total -
@@ -37,7 +39,7 @@ const BillPriceInfo = () => {
                 }}
               />
             </div>
-            {/* <div>&#x20B9;{(total - total * (dis / 100)).toFixed(2)}</div> */}
+            <div>&#x20B9;{(total - total * (value / 100)).toFixed(2)}</div>
           </div>
         </div>
         </div>
