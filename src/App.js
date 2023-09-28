@@ -7,6 +7,8 @@ import CustomerDetails from './Components/CustomerDetails';
 import Plant from './Components/Plant';
 import Home from './Components/Home';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Profile from './Components/Profile';
+import "./style/profile.scss"
 
 
 
@@ -22,6 +24,7 @@ const App =() =>
           <Route path='/order' element={<Order/>}/>
           <Route path='/customerdetails' element={<CustomerDetails/>}/>
           <Route path='/plant' element={<Plant/>}/>
+          <Route path='/profile' element={<Profile/>}/>
         </Routes>
       </Router>
     </>

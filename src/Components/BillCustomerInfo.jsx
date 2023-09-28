@@ -1,5 +1,6 @@
 import { Center } from '@chakra-ui/react'
 import React from 'react'
+import "../style/responsive.css"
 
 const BillCustomerInfo = (currObj) => {
   const { contactNo, customerName, address } = currObj;
@@ -7,7 +8,7 @@ const BillCustomerInfo = (currObj) => {
   return (
     <>
  <h5 style={{paddingLeft: '20px', paddingTop:'10px', paddingBottom:"10px"}}>Customer Info:</h5>
-        <div
+        <div className="nametag"
           style={{
             display: "flex",
             justifyContent: "space-around",

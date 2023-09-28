@@ -39,3 +39,18 @@ table {
     }
   }
   
+
+  @media screen and (max-width: 768px) {
+   
+    .nametag
+    {
+      margin:"0px 20px",
+    }
+    
+    .bodytag
+    {
+      left: 100.396px;
+    }
+
+
+  }

@@ -63,7 +63,7 @@ function BillCart() {
         display: "flex",
         flexDirection: "column",
         border: "2px solid black",
-        borderRadius: "5px",margin:"20px 20px"
+        borderRadius: "5px",margin:"0px 20px"
       }}
     >
       <div>

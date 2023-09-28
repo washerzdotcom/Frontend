@@ -4,6 +4,7 @@ import BillCustomerInfo from './BillCustomerInfo';
 import BillPriceInfo from './BillPriceInfo';
 import Login from './Login';
 import BillCart from './BillCart';
+import Profile from './Profile';
 
 const Home = () => {
   return (
@@ -11,9 +12,10 @@ const Home = () => {
     {/* <div></div>
     <div></div> */}
     {/* <Login/> */}
-    <BillCustomerInfo/>
+    {/* <BillCustomerInfo/>
     <BillCart/>
-    <BillPriceInfo/>
+    <BillPriceInfo/> */}
+    <Profile/>
     </>
    
   )

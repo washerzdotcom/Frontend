@@ -3,6 +3,7 @@ import '../style/header.css'; // Import your CSS file for styling
 import { HashLink } from "react-router-hash-link"; 
 import img1 from "../assets/washrzlogonew.png"
 import Home from './Home';
+import Profile from './Profile';
 
 function Header() {
   return (
@@ -21,13 +22,16 @@ function Header() {
            <HashLink to ="/pickups">PickUps</HashLink>
           </li>
           <li className="navbar-link">
-            <a href="/customerdetails">Customer Details</a>
+            <a href="/customerdetails">Customers</a>
           </li>
           <li className="navbar-link">
             <a href="/order">Orders</a>
           </li>
           <li className="navbar-link">
             <a href="/plant">Plant</a>
+          </li>
+          <li className="navbar-link">
+            <Profile/>
           </li>
         </ul>
       </div>

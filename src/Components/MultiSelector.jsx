@@ -7,7 +7,7 @@ function DropdownOption({ option, onClick, currentPath, qty, setqty }) {
   const [currentPathQty, setcurrentPathQty] = useState([]);
 
   // console.log("here is the qty--> ", qty);
-  
+
   useEffect(() => {
     let timeout;
     if (isSubMenuOpen) {
@@ -25,11 +25,10 @@ function DropdownOption({ option, onClick, currentPath, qty, setqty }) {
     };
   }, [isSubMenuOpen, setqty]);
 
-
   const handleMouseEnter = () => {
     // setTimeout(()=> {
     // }, 1000)
-    setqty(0)
+    setqty(0);
     setIsSubMenuOpen(true);
   };
 
@@ -44,8 +43,8 @@ function DropdownOption({ option, onClick, currentPath, qty, setqty }) {
       if (!option.Price) {
         // console.log("!!!!options11 ", currentPath);
         onClick([...currentPath, option]);
-      }else{
-        setcurrentPathQty([...currentPath, option])
+      } else {
+        setcurrentPathQty([...currentPath, option]);
       }
     }
   };
@@ -89,11 +88,11 @@ function DropdownOption({ option, onClick, currentPath, qty, setqty }) {
                 placeholder="Please Provide Qty"
                 type="number"
                 onChange={(e) => {
-                 if(e.target.value <0)
-                 {
-                  return alert("Dont Give Negative Value:(")
-                 }
-                 setqty(e.target.value)}}
+                  if (e.target.value < 0) {
+                    return alert("Dont Give Negative Value:(");
+                  }
+                  setqty(e.target.value);
+                }}
               />{" "}
               <Button
                 style={{ width: "20%" }}
@@ -126,8 +125,10 @@ function NestedDropdown({ menuItems, setMenuItems }) {
               label: "Wearable",
               children: [{ label: "weight", children: [] }],
             },
-            { label: "Non-Wearable", 
-            children: [{ label: "weight", children: [] }] },
+            {
+              label: "Non-Wearable",
+              children: [{ label: "weight", children: [] }],
+            },
           ],
         },
         {
@@ -398,8 +399,6 @@ function NestedDropdown({ menuItems, setMenuItems }) {
           Price: 700,
           children: [],
         },
-        
-
       ],
     },
     {
@@ -456,31 +455,39 @@ function NestedDropdown({ menuItems, setMenuItems }) {
       "Selected Path:",
       selectedPath.map((option) => {
         console.log("-------------------------->> ", option);
-        if (option.label === "Laundary" || option.label === 'Dryclean' || option.label === 'ShoeSpa') {
+        if (
+          option.label === "Laundary" ||
+          option.label === "Dryclean" ||
+          option.label === "ShoeSpa"
+        ) {
           obj.group = option.label;
-        } else if (option.label === "Wash and Fold" || option.label === "Wash and Iron") {
+        } else if (
+          option.label === "Wash and Fold" ||
+          option.label === "Wash and Iron"
+        ) {
           obj.type = option.label;
-        } else if (option.label === "Wearable" || option.label === "Non-Wearable") {
+        } else if (
+          option.label === "Wearable" ||
+          option.label === "Non-Wearable"
+        ) {
           obj.wearType = option.label;
         } else if (option.label === "weight") {
           // console.log("hii ia m  weight--->");
           // Prompt the user for a custom weight input
           const customWeight = prompt("Enter custom weight:");
-          if(isNaN(Number(customWeight)))
-          return alert("enter a number")
+          if (isNaN(Number(customWeight))) return alert("enter a number");
           obj.weight = customWeight;
         } else if (option.Price) {
           // console.log("here is the gfyrewgfrew qty--> ", option);
-          obj.type = option.label
-          obj.wearType = '-'
+          obj.type = option.label;
+          obj.wearType = "-";
           obj.weight = qty;
-          if(obj.wearType === '-')
-          {
+          if (obj.wearType === "-") {
             option.Price = option.Price * qty;
           }
-          obj.Price = option.Price
+          obj.Price = option.Price;
         }
-        
+
         return option.label;
       })
     );
