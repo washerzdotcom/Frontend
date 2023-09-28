@@ -62,8 +62,8 @@ const sliderImageUrl = [
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdvuww0JDC7nFRxiFL6yFiAxRJgM-1tvJTxA&usqp=CAU",
   },
 ];
-const ItemSlider = () => {
-  return (
+const ItemSlider = ({dryCleanItems, shoeSpa, laundry, type, handleClick}) => {
+  const Obj = type === 'DryClean' ? dryCleanItems : type === 'ShoeSpa' ? shoeSpa : type === 'laundry' ? laundry : {};  return (
     <div className="parent">
       <Carousel
         additionalTransfrom={0}
@@ -89,7 +89,7 @@ const ItemSlider = () => {
               max: 3000,
               min: 1024,
             },
-            items: 10,
+            items: type === 'laundry' ? 4 : 5,
             partialVisibilityGutter: 40,
           },
           mobile: {
@@ -118,22 +118,29 @@ const ItemSlider = () => {
         slidesToSlide={1}
         swipeable
       >
-        {sliderImageUrl.map((imageUrl, index) => {
+        {Obj?.children?.map((item, index) => {
           return (
-            <div className="slider" key={index}>
-              <img src={imageUrl.url} alt="movie" />
+            <div className="slider" key={index}  onClick={()=>
+              {
+                handleClick(item, type)
+              }}>
+              <img src={sliderImageUrl[0]?.url} alt="movie" />
               <div
                 style={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   background: "#90EE90",
-                  borderRadius: "10px",
                   marginTop: "10px",
-                  
+                  backgroundColor: 'teal',
+                  color: 'white',
+                  height: '100px',
+                  width: '70%',
+                  textAlign: 'center',
+                  borderRadius: '5px'
                 }}
               >
-                Shirt(300$)
+                {`${item.label}(₹${item.viewPrice})`}
               </div>
             </div>
           );

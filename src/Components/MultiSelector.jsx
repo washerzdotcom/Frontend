@@ -117,35 +117,6 @@ function NestedDropdown({ menuItems, setMenuItems }) {
   // ... (same as your existing code)
   const options = [
     {
-      label: "Laundary",
-      children: [
-        {
-          label: "Wash and Fold",
-          children: [
-            {
-              label: "Wearable",
-              children: [{ label: "weight", children: [] }],
-            },
-            { label: "Non-Wearable", 
-            children: [{ label: "weight", children: [] }] },
-          ],
-        },
-        {
-          label: "Wash and Iron",
-          children: [
-            {
-              label: "Wearable",
-              children: [{ label: "weight", children: [] }],
-            },
-            {
-              label: "Non-Wearable",
-              children: [{ label: "weight", children: [] }],
-            },
-          ],
-        },
-      ],
-    },
-    {
       label: "Dryclean",
       children: [
         {

@@ -11,9 +11,9 @@ const Home = () => {
     {/* <div></div>
     <div></div> */}
     {/* <Login/> */}
-    <BillCustomerInfo/>
+    {/* <BillCustomerInfo/> */}
     <BillCart/>
-    <BillPriceInfo/>
+    {/* <BillPriceInfo/> */}
     </>
    
   )

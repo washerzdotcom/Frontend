@@ -46,7 +46,7 @@ function Item({items, handleQuantity,inputChange}) {
           <div key={index} style={listItemStyle}>
             <div>
               <h2 style={headingStyle}>{item.heading}</h2>
-              <p style={paragraphStyle}>{item.subHeading}</p>
+              <p style={paragraphStyle}>₹{item.subHeading}</p>
             </div>
             <div style={{ marginRight: index === 1 || index === 3 ? '8%' : '0px'}}>
               <button style={buttonStyle} onClick={() => handleQuantity('-', index)}>-</button>
@@ -56,7 +56,7 @@ function Item({items, handleQuantity,inputChange}) {
             </div>
             <div>
               <h2 style={headingStyle}>Price</h2>
-              <span style={{ margin: '0 10px' }}>₹{item.quantity > 0 ? item.quantity*item.viewPrice : 0}</span>
+              <span style={{ margin: '0 10px' }}>₹{item.quantity > 0 ? item.quantity*item.price : 0}</span>
             </div>
           </div>
         ))}
