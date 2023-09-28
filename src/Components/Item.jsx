@@ -14,9 +14,9 @@ function Item({items, handleQuantity,inputChange}) {
   };
 
   const listItemStyle = {
-    width: '80%', // Set the width of each list item to 80% of the container width
+    width: '100%', // Set the width of each list item to 80% of the container width
     background: 'white',
-    padding: '0px',
+    padding: '5px 25px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
     borderRadius: '4px',
     display: 'flex',

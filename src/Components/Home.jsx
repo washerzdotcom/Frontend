@@ -3,13 +3,17 @@ import App from './Test';
 import BillCustomerInfo from './BillCustomerInfo';
 import BillPriceInfo from './BillPriceInfo';
 import Login from './Login';
+import BillCart from './BillCart';
 
 const Home = () => {
   return (
     <>
-    {/* <div><BillCustomerInfo/></div>
-    <div><BillPriceInfo/></div> */}
-    <Login/>
+    {/* <div></div>
+    <div></div> */}
+    {/* <Login/> */}
+    <BillCustomerInfo/>
+    <BillCart/>
+    <BillPriceInfo/>
     </>
    
   )

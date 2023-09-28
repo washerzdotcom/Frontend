@@ -16,7 +16,7 @@ const BillCustomerInfo = (currObj) => {
             borderRadius: "5px",
             padding: "20px",
             marginBottom: "25px",
-            margin:"0px 20px"
+            margin:"0px 20px",
           }}
         >
           <div>

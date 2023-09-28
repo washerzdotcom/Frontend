@@ -56,15 +56,19 @@ function BillCart() {
   };
   return (
     <div
+    style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+    <div
       style={{
-        width: "70vw",
+        width: "80vw",
         display: "flex",
         flexDirection: "column",
+        border: "2px solid black",
+        borderRadius: "5px",margin:"20px 20px"
       }}
     >
       <div>
         {" "}
-        <h5>Added Items:</h5>
+        <h5 style={{paddingLeft: '20px', paddingTop:'10px', paddingBottom:"10px"}}>Added Items:</h5>
         <Item
           items={items}
           handleQuantity={handleQuantity}
@@ -72,14 +76,15 @@ function BillCart() {
         />
       </div>
       <div>
-        <h5>Dry Clean:</h5>
+        <h5 style={{paddingLeft: '20px', paddingTop:'10px', paddingBottom:"10px"}}>Dry Clean:</h5>
         <ItemSlider />
       </div>
       <div>
         {" "}
-        <h5>Shoe Spa:</h5>
+        <h5 style={{paddingLeft: '20px', paddingTop:'10px', paddingBottom:"10px"}}>Shoe Spa:</h5>
         <ItemSlider />
       </div>
+    </div>
     </div>
   );
 }

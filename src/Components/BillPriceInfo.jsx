@@ -3,6 +3,7 @@ import React from 'react'
 const BillPriceInfo = () => {
   return (
     <>
+    <div style={{marginBottom:"50px"}}>
    <h5 style={{paddingLeft: '20px', paddingTop:'10px', paddingBottom:"10px"}}>Billing Info:</h5>
    <div
           style={{
@@ -39,7 +40,7 @@ const BillPriceInfo = () => {
             {/* <div>&#x20B9;{(total - total * (dis / 100)).toFixed(2)}</div> */}
           </div>
         </div>
-
+        </div>
     </>
   )
 }
