@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Table } from "react-bootstrap";
 import { instance, pickupinstance } from "../config";
 import ReactPaginate from "react-paginate";
@@ -10,9 +10,14 @@ import ClipLoader from "react-spinners/ClipLoader";
 import Loader from "./Loader";
 import "../style/responsive.css";
 import socket from "../utills/socket";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../utills/context";
+
 
 const LiveDelivery = () => {
+  const navigate = useNavigate();
   console.log("hiiiiiiiiiiiiiiiiiiiiii11111")
+  const {currObj, setCurrObj } = useContext(AppContext);
   const [data, setData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const pageSize = 8;
@@ -23,14 +28,6 @@ const LiveDelivery = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [priceConfig, setPriceConfig] = useState({});
 
-  const [currObj, setCurrObj] = useState({
-    contactNo: "",
-    customerName: "",
-    address: "",
-    items: [],
-    price: 0,
-    id: "",
-  });
 
   const handledelete = async (id) => {
     try {
@@ -106,7 +103,7 @@ const LiveDelivery = () => {
                               className="btn btn-outline-success mx-auto d-block m-1"
                               style={{ width: "100%" }} // Add this inline style
                               onClick={() => {
-                                setShowSuc(!showSuc);
+                                // setShowSuc(!showSuc);
                                 setCurrObj({
                                   contactNo: user.Contact,
                                   customerName: user.Name,
@@ -115,6 +112,7 @@ const LiveDelivery = () => {
                                   price: 0,
                                   id: user._id,
                                 });
+                                navigate('/Product-Bill')
                               }}
                             >
                               Complete

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 function Item({items, handleQuantity,inputChange}) {
+ 
   const containerStyle = {
     width: '100%',
     margin: '0 auto',
@@ -44,15 +45,16 @@ function Item({items, handleQuantity,inputChange}) {
       <div style={listContainerStyle}>
         {items.map((item, index) => (
           <div key={index} style={listItemStyle}>
+            {/* { console.log("here is the quantity------->> ", item.quantity)} */}
             <div>
               <h2 style={headingStyle}>{item.heading}</h2>
               <p style={paragraphStyle}>₹{item.subHeading}</p>
             </div>
             <div style={{ marginRight: index === 1 || index === 3 ? '8%' : '0px'}}>
-              <button style={buttonStyle} onClick={() => handleQuantity('-', index)}>-</button>
-              <input style={{paddingBottom: '15px',paddingTop: '10px',height: '25px', margin: "5px", textAlign: 'center', width: '40px'}}type='text' value={item.quantity} onChange={(e)=> inputChange(index, e.target.value)}/>
+              <button style={buttonStyle} onClick={() => handleQuantity('-', index, item.quantity)}>-</button>
+              <input min='0' style={{paddingBottom: '15px',paddingTop: '10px',height: '25px', margin: "5px", textAlign: 'center', width: '40px'}} type='number' value={item.quantity} onChange={(e)=> inputChange(index, e.target.value)}/>
               {/* <span style={{ margin: '0 10px' }}>{item.quantity}</span> */}
-              <button style={buttonStyle} onClick={() => handleQuantity('+', index)}>+</button>
+              <button style={buttonStyle} onClick={() => handleQuantity('+', index, item.quantity)}>+</button>
             </div>
             <div>
               <h2 style={headingStyle}>Price</h2>

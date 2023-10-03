@@ -1,9 +1,10 @@
 import { Center } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
+import { AppContext } from '../utills/context'
 
 const BillCustomerInfo = (currObj) => {
-  const { contactNo, customerName, address } = currObj;
-
+  const {currObj: {customerName, contactNo, address} } = useContext(AppContext);
+  console.log("this is the ", {customerName, contactNo, address})
   return (
     <>
  {/* <h5 style={{paddingLeft: '20px', paddingTop:'10px', paddingBottom:"10px"}}>Customer Info:</h5> */}
@@ -25,9 +26,9 @@ const BillCustomerInfo = (currObj) => {
             <p>Address:</p>
           </div>
           <div>
-            <p>{"Ayush Singh"}</p>
-            <p>{"8174883345"}</p>
-            <p>{"Sector 135 Noida"}</p>
+            <p>{customerName}</p>
+            <p>{contactNo}</p>
+            <p>{address}</p>
           </div>
         </div>
     </>

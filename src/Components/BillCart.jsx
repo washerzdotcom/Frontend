@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Item from "./Item";
 import ItemSlider from "./itemSlider";
 import BillCustomerInfo from "./BillCustomerInfo";
 import BillPriceInfo from "./BillPriceInfo";
+import { Button, Spinner } from "react-bootstrap";
+import { AppContext } from "../utills/context";
+import { instance, pickupinstance } from "../config";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function BillCart() {
+  const navigate = useNavigate();
+  const { currObj, setCurrObj } = useContext(AppContext);
+  const [loader, setLoader] = useState(false);
   const [items, setItems] = useState([]);
+  // console.log("this is the curr obj ---> ", currObj)
   const [laundry, setLaundry] = useState({
     label: "Laundry",
     children: [
@@ -412,30 +421,30 @@ function BillCart() {
     ],
   });
 
-  const handleQuantity = (type, i) => {
+  const handleQuantity = (type, i, qty) => {
     const changedArr = [...items];
+    console.log("qty ", qty)
     if (changedArr[i].quantity === 0 && type === "-") return;
     if (type === "-") {
       changedArr[i].quantity = changedArr[i].quantity - 1;
-      console.log(
-        "---------",
-        changedArr[i].quantity,
-        changedArr[i].newQtyPrice
-      );
-      changedArr[i].newQtyPrice = changedArr[i].quantity * changedArr[i].price;
+      changedArr[i].newQtyPrice = (changedArr[i].quantity * changedArr[i].price).toFixed(2);
     } else if ("+") {
       changedArr[i].quantity = changedArr[i].quantity + 1;
-      changedArr[i].newQtyPrice = changedArr[i].quantity * changedArr[i].price;
+      changedArr[i].newQtyPrice = (changedArr[i].quantity * changedArr[i].price).toFixed(2);
     }
     setItems([...changedArr]);
+    const nitems = [...changedArr].filter((el) => el.quantity !== 0);
+    setCurrObj((prev) => {
+      return { ...prev, items: nitems };
+    });
   };
 
   const inputChange = (i, value) => {
-    console.log("helooo--", value);
+    console.log("thiss the valueeee->> ", value)
     const changedArr = [...items];
-    if (!value || value > 0) {
-      console.log("helooo1--", value);
+    if (value >= 0) {
       changedArr[i].quantity = !value ? "" : value * 1;
+      changedArr[i].newQtyPrice =(changedArr[i].quantity * changedArr[i].price).toFixed(2);
       setItems([...changedArr]);
     }
   };
@@ -447,7 +456,7 @@ function BillCart() {
       viewPrice: obj.viewPrice,
       quantity: 1,
       price: obj.Price,
-      newQtyPrice: obj.Price
+      newQtyPrice: obj.Price,
     };
     if (type === "DryClean") {
       setDryCleanItems({
@@ -466,13 +475,64 @@ function BillCart() {
       });
     }
     setItems((prev) => [...prev, newObj]);
+    const nitems = [...items, newObj].filter((el) => el.quantity !== 0);
+    setCurrObj((prev) => {
+      return { ...prev, items: [...nitems, newObj] };
+    });
+  };
+
+  const handledelete = async (id) => {
+    try {
+      const res = await pickupinstance.put(`/deletePickup/${id}`);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+  const [dis, setDis] = useState(0);
+
+  const handleSubmit = async () => {
+    setLoader(true)
+    setCurrObj((prev) => {
+      return { ...prev, price: total };
+    });
+    if (!currObj.customerName) {
+      return toast.error("Please fill all field :(")
+    }     
+    try {
+      console.log("ewhguirehdghreuhgre---------------> ", currObj);
+      const res = await pickupinstance.post(`/addOrder`, {...currObj, price: (total - total * (dis / 100)).toFixed(2)});
+      const sendTemRes = await instance.post(
+        `/sendTemplateMessage?whatsappNumber=${currObj.contactNo}`,
+        {
+          template_name: "automated_collection_successfull",
+          broadcast_name: "automated_collection_successfull",
+          parameters: [
+            {
+              name: "name",
+              value: currObj.customerName,
+            },
+            {
+              name: "total_Bill",
+              value: (total - total * (dis / 100)).toFixed(2),
+            },
+          ],
+        }
+      );
+      await handledelete(currObj.id);
+      toast.success("Order has been created, check order page :)");
+      navigate('/order')
+      setLoader(false)
+    } catch (error) {
+      setLoader(false)
+      console.log("this is error", error);
+    }
   };
 
   const total = items.reduce((prev, el) => {
-    console.log("this is data--> ", prev, el)
+    // console.log("this is data--> ", prev, el);
     return prev + el.newQtyPrice * 1;
   }, 0);
-  console.log("this is total: ", total);
+  // console.log("this is total: ", total);
   return (
     <div
       style={{
@@ -506,7 +566,7 @@ function BillCart() {
           >
             Customer Info:
           </h5>
-          <BillCustomerInfo />
+          <BillCustomerInfo currObj={currObj} />
         </div>
         <div>
           {" "}
@@ -660,7 +720,21 @@ function BillCart() {
           >
             Billing Info:
           </h5>
-          <BillPriceInfo total={total} />
+          <BillPriceInfo total={total} value={dis} setValue={setDis} />
+        </div>
+        <div
+          style={{
+            padding: "5px",
+            margin: "10px",
+            color: "white",
+            // fontSize: "30px",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+          onClick={handleSubmit}
+        >
+          {" "}
+          <Button style={{ fontSize: "20px", width: loader ? '91px' : null, height: loader ? '43px' : null }} disabled={loader}>{loader ? <Spinner animation="border" /> : 'Finalize'}</Button>
         </div>
       </div>
     </div>

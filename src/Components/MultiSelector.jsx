@@ -426,7 +426,6 @@ function NestedDropdown({ menuItems, setMenuItems }) {
     console.log(
       "Selected Path:",
       selectedPath.map((option) => {
-        console.log("-------------------------->> ", option);
         if (option.label === "Laundary" || option.label === 'Dryclean' || option.label === 'ShoeSpa') {
           obj.group = option.label;
         } else if (option.label === "Wash and Fold" || option.label === "Wash and Iron") {

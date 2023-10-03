@@ -7,14 +7,15 @@ import BillCart from './BillCart';
 
 const Home = () => {
   return (
-    <>
+    <h1 style={{textAlign: 'center'}}>
+    Not Yet Build
     {/* <div></div>
     <div></div> */}
     {/* <Login/> */}
     {/* <BillCustomerInfo/> */}
-    <BillCart/>
+    {/* <BillCart/> */}
     {/* <BillPriceInfo/> */}
-    </>
+    </h1>
    
   )
 }
