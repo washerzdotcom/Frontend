@@ -23,7 +23,6 @@ const ItemTable = ({menuItems, priceConfig, deleteTask}) => {
                     </tr>
                   ) : (
                     menuItems.map((item, index) => {
-                      console.log("this is item.price---> ", item.Price)
                       let price = item.Price;
                       if(item.wearType !== '-')
                       {
@@ -31,7 +30,6 @@ const ItemTable = ({menuItems, priceConfig, deleteTask}) => {
                         ? item.weight * priceConfig[item.type][item.wearType]
                         : 0;
                       }
-
                       return (
                         <tr key={index}>
                           <td>{item.group}</td>

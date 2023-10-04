@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-const BillPriceInfo = ({total}) => {
-  const [value, setValue] = useState(0);
+const BillPriceInfo = ({total, value, setValue}) => {
+ 
   return (
     <>
     <div style={{marginBottom:"50px"}}>

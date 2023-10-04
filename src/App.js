@@ -7,15 +7,24 @@ import CustomerDetails from './Components/CustomerDetails';
 import Plant from './Components/Plant';
 import Home from './Components/Home';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Profile from './Components/Profile';
-import "./style/profile.scss"
-
-
+import { useState } from 'react';
+import { AppContext } from './utills/context';
+import BillCart from './Components/BillCart';
+import Protected from './Components/Protected';
 
 
 const App =() =>
-(
-    <>
+{
+  const [currObj, setCurrObj] = useState({
+    contactNo: "",
+    customerName: "",
+    address: "",
+    items: [],
+    price: 0,
+    id: "",
+  }); 
+    return <>
+    <AppContext.Provider value={{ currObj, setCurrObj }}>
       <Router>
         <Header/>
         <Routes>
@@ -24,9 +33,14 @@ const App =() =>
           <Route path='/order' element={<Order/>}/>
           <Route path='/customerdetails' element={<CustomerDetails/>}/>
           <Route path='/plant' element={<Plant/>}/>
-          <Route path='/profile' element={<Profile/>}/>
+          <Route path='/Product-Bill' element={
+          <Protected currObj={currObj}>
+          <BillCart/>
+        </Protected>
+          }/>
         </Routes>
       </Router>
+      </AppContext.Provider>
     </>
-)
+}
 export default App;

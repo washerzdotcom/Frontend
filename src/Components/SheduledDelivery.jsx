@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Table } from "react-bootstrap";
 import { instance, pickupinstance } from "../config";
 import ReactPaginate from "react-paginate";
@@ -10,10 +10,12 @@ import ClipLoader from "react-spinners/ClipLoader";
 import Loader from "./Loader";
 import "../style/responsive.css";
 import socket from "../utills/socket";
+import { AppContext } from "../utills/context";
+import { useNavigate } from "react-router-dom";
 
 
 const SheduledDelivery = ({type}) => {
-  console.log("type------------------->",type);
+  const {currObj, setCurrObj } = useContext(AppContext);
   const [data, setData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const pageSize = 8;
@@ -22,15 +24,8 @@ const SheduledDelivery = ({type}) => {
   const [billShow, setBillShow] = useState(false);
   const [total, setTotal] = useState(null);
   const [isLoading, setIsLoading] = useState(true); // New state for loading indicator
-  const [currObj, setCurrObj] = useState({
-    contactNo: "",
-    customerName: "",
-    address: "",
-    items: [],
-    price: 0,
-    id: "",
-  });
   const [priceConfig, setPriceConfig] = useState({});
+  const navigate = useNavigate();
 
   const handledelete = async (id) => {
     try {
@@ -114,7 +109,6 @@ const SheduledDelivery = ({type}) => {
                               className="btn btn-outline-success d-block mx-auto m-1"
                               style={{ width: "100%" }} // Add this inline style
                               onClick={() => {
-                                setShowSuc(!showSuc);
                                 setCurrObj({
                                   contactNo: user.Contact,
                                   customerName: user.Name,
@@ -123,6 +117,7 @@ const SheduledDelivery = ({type}) => {
                                   price: 0,
                                   id: user._id,
                                 });
+                                navigate('/Product-Bill')
                               }}
                             >
                               Complete
