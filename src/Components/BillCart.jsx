@@ -439,11 +439,11 @@ function BillCart() {
     });
   };
 
-  const inputChange = (i, value) => {
+  const inputChange = (i, value, type) => {
     console.log("thiss the valueeee->> ", value)
     const changedArr = [...items];
     if (value >= 0) {
-      changedArr[i].quantity = !value ? "" : value * 1;
+      changedArr[i].quantity = !value ? "" : (changedArr[i].type === 'DryClean' ||  changedArr[i].type === 'ShoeSpa') ? Math.ceil(value * 1) : value * 1;
       changedArr[i].newQtyPrice =(changedArr[i].quantity * changedArr[i].price).toFixed(2);
       setItems([...changedArr]);
     }
@@ -457,6 +457,7 @@ function BillCart() {
       quantity: 1,
       price: obj.Price,
       newQtyPrice: obj.Price,
+      type: type
     };
     if (type === "DryClean") {
       setDryCleanItems({
@@ -499,7 +500,6 @@ function BillCart() {
       return toast.error("Please fill all field :(")
     }     
     try {
-      console.log("ewhguirehdghreuhgre---------------> ", currObj);
       const res = await pickupinstance.post(`/addOrder`, {...currObj, price: (total - total * (dis / 100)).toFixed(2)});
       const sendTemRes = await instance.post(
         `/sendTemplateMessage?whatsappNumber=${currObj.contactNo}`,

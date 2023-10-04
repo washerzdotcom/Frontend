@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 
 
 const SheduledDelivery = ({type}) => {
-  console.log("type------------------->",type);
   const {currObj, setCurrObj } = useContext(AppContext);
   const [data, setData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
