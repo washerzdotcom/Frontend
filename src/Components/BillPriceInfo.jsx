@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import "../style/responsive.css"
 
 const BillPriceInfo = ({total, value, setValue}) => {
  
@@ -22,11 +23,12 @@ const BillPriceInfo = ({total, value, setValue}) => {
             <div style={{marginBottom:"20px"}}>Discount :</div>
             <div>Final Bill : </div>
           </div>
-          <div>
+          <div className='col'>
             <div style={{marginBottom:"20px"}}> &#x20B9;{total}</div>
             <div style={{marginBottom:"20px", border:"2px solid"}}>
               <input
                 type={"number"}
+                className='col1'
                 // value={value}
                 onChange={(e) => {
                   setValue(e.target.value*1)
