@@ -51,12 +51,12 @@
   margin:10px;
   overflow:"hidden";
   padding:2rem 0;
-  cursor: pointer;
+  cursor: pointer;  
 }
 
 .slider img {
   height: 70%;
-  width: 70%;
+  width: 80%;
   border-radius:10px 10px 0px 0px;
   z-index: 1;
 }
@@ -83,5 +83,15 @@ input::-webkit-inner-spin-button {
 /* Works for Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+@media screen and (max-width: 768px) {
+  .slider {
+    margin:10px;
+    overflow:"hidden";
+    padding:2rem 0;
+    cursor: pointer;  
+    margin-right: -50px;
+  }
 }
 

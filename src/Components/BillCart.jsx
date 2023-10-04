@@ -87,7 +87,7 @@ function BillCart() {
       {
         label: "Blazer/Jacket",
         Price: 250,
-        viewPrice: "250/pcs",
+        viewPrice: " 250/pcs",
         newQtyPrice: 250,
         img: `blazer.png`
       },
@@ -113,9 +113,9 @@ function BillCart() {
         img: `longblazer.png`
       },
       {
-        label: "Sweatshirt/Hoodie",
+        label: "Sweatshirt /Hoodie",
         Price: 250,
-        viewPrice: "250/pcs",
+        viewPrice: " 250/pcs",
         newQtyPrice: 250,
         img: `hoodie.png`
       },
@@ -240,9 +240,9 @@ function BillCart() {
         img : `shwal.jpg`
       },
       {
-        label: "Sweater/Cardigan",
+        label: "Sweater /Cardigan",
         Price: 200,
-        viewPrice: "200/pcs",
+        viewPrice: " 200/pcs",
         newQtyPrice: 200,
         img : `cardigin.jpg`
       },

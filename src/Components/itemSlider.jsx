@@ -73,7 +73,7 @@ const ItemSlider = ({ dryCleanItems, shoeSpa, laundry, type, handleClick }) => {
               max: 464,
               min: 0,
             },
-            items: 3,
+            items: 2,
             partialVisibilityGutter: 30,
           },
           tablet: {
