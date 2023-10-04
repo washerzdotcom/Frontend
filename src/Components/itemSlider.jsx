@@ -2,6 +2,10 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "../App.css";
+// "../assets/washrzimages/blazer.png"
+
+const imgurl = "../assets/washrzimages/";
+
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -15,7 +19,7 @@ const responsive = {
   },
   mobile: {
     breakpoint: { max: 767, min: 464 },
-    items: 7,
+    items: 2,
     slidesToSlide: 1, // optional, default to 1.
   },
 };
@@ -24,46 +28,18 @@ const sliderImageUrl = [
   {
     url: "https://i2.wp.com/www.geeksaresexy.net/wp-content/uploads/2020/04/movie1.jpg?resize=600%2C892&ssl=1",
   },
-  {
-    url: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-kids-movies-2020-call-of-the-wild-1579042974.jpg?crop=0.9760858955588091xw:1xh;center,top&resize=480:*",
-  },
-  //Second image url
-  {
-    url: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-movies-for-kids-2020-sonic-the-hedgehog-1571173983.jpg?crop=0.9871668311944719xw:1xh;center,top&resize=480:*",
-  },
-  //Third image url
-  {
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQS82ET2bq9oTNwPOL8gqyoLoLfeqJJJWJmKQ&usqp=CAU",
-  },
-
-  //Fourth image url
-
-  {
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdvuww0JDC7nFRxiFL6yFiAxRJgM-1tvJTxA&usqp=CAU",
-  },
-  {
-    url: "https://i2.wp.com/www.geeksaresexy.net/wp-content/uploads/2020/04/movie1.jpg?resize=600%2C892&ssl=1",
-  },
-  {
-    url: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-kids-movies-2020-call-of-the-wild-1579042974.jpg?crop=0.9760858955588091xw:1xh;center,top&resize=480:*",
-  },
-  //Second image url
-  {
-    url: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-movies-for-kids-2020-sonic-the-hedgehog-1571173983.jpg?crop=0.9871668311944719xw:1xh;center,top&resize=480:*",
-  },
-  //Third image url
-  {
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQS82ET2bq9oTNwPOL8gqyoLoLfeqJJJWJmKQ&usqp=CAU",
-  },
-
-  //Fourth image url
-
-  {
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdvuww0JDC7nFRxiFL6yFiAxRJgM-1tvJTxA&usqp=CAU",
-  },
 ];
-const ItemSlider = ({dryCleanItems, shoeSpa, laundry, type, handleClick}) => {
-  const Obj = type === 'DryClean' ? dryCleanItems : type === 'ShoeSpa' ? shoeSpa : type === 'laundry' ? laundry : {};  return (
+
+const ItemSlider = ({ dryCleanItems, shoeSpa, laundry, type, handleClick }) => {
+  const Obj =
+    type === "DryClean"
+      ? dryCleanItems
+      : type === "ShoeSpa"
+      ? shoeSpa
+      : type === "laundry"
+      ? laundry
+      : {};
+  return (
     <div className="parent">
       <Carousel
         additionalTransfrom={0}
@@ -89,7 +65,7 @@ const ItemSlider = ({dryCleanItems, shoeSpa, laundry, type, handleClick}) => {
               max: 3000,
               min: 1024,
             },
-            items: type === 'laundry' ? 4 : 5,
+            items: type === "laundry" ? 4 : 5,
             partialVisibilityGutter: 40,
           },
           mobile: {
@@ -97,7 +73,7 @@ const ItemSlider = ({dryCleanItems, shoeSpa, laundry, type, handleClick}) => {
               max: 464,
               min: 0,
             },
-            items: 5,
+            items: 3,
             partialVisibilityGutter: 30,
           },
           tablet: {
@@ -119,25 +95,38 @@ const ItemSlider = ({dryCleanItems, shoeSpa, laundry, type, handleClick}) => {
         swipeable
       >
         {Obj?.children?.map((item, index) => {
+          {
+            console.log("img---------- ", item.img);
+          }
           return (
-            <div className="slider" key={index}  onClick={()=>
-              {
-                handleClick(item, type)
-              }}>
-              <img src={sliderImageUrl[0]?.url} alt="movie" />
+            <div
+              className="slider"
+              key={index}
+              onClick={() => {
+                handleClick(item, type);
+              }}
+            >
+              <img style={{height: "100px" , width : "70%", objectFit:"fit"}}
+                src={
+                  item.img
+                    ? require(`../assets/washrzimages/${item.img}`)
+                    : sliderImageUrl[0].url
+                }
+                alt="image"
+              />
               <div
                 style={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   background: "#90EE90",
-                  marginTop: "10px",
-                  backgroundColor: 'teal',
-                  color: 'white',
-                  height: '100px',
-                  width: '70%',
-                  textAlign: 'center',
-                  borderRadius: '5px'
+                  // marginTop: "-100px",
+                  backgroundColor: "teal",
+                  color: "white",
+                  height: "100px",
+                  width: "70%",
+                  textAlign: "center",
+                  borderRadius: "0px 0px 10px 10px",
                 }}
               >
                 {`${item.label}(₹${item.viewPrice})`}

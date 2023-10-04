@@ -3,6 +3,7 @@ import Item from "./Item";
 import ItemSlider from "./itemSlider";
 import BillCustomerInfo from "./BillCustomerInfo";
 import BillPriceInfo from "./BillPriceInfo";
+const imgurl = "../assets/washrzimages";
 
 function BillCart() {
   const [items, setItems] = useState([]);
@@ -58,164 +59,192 @@ function BillCart() {
         Price: 100,
         viewPrice: "100/pcs",
         newQtyPrice: 100,
+        img: `shirt.png`
+        
       },
       {
         label: "Jeans",
         Price: 120,
         viewPrice: "120/pcs",
         newQtyPrice: 120,
+        img: `jeans.png` 
       },
       {
         label: "Trousers",
         Price: 100,
         viewPrice: "100/pcs",
         newQtyPrice: 100,
+        img: `trouser.png`
       },
       {
         label: "Blazer/Jacket",
         Price: 250,
         viewPrice: "250/pcs",
         newQtyPrice: 250,
+        img: `blazer.png`
       },
       {
         label: "3 piece Suit",
         Price: 450,
         viewPrice: "450/pcs",
         newQtyPrice: 450,
+        img: `3_pc_suit.png`
       },
       {
         label: "2 piece Suit",
         Price: 300,
         viewPrice: "300/pcs",
         newQtyPrice: 300,
+        img: `2_pc_suit.png`
       },
       {
         label: "Long Blazer",
         Price: 350,
         viewPrice: "350/pcs",
         newQtyPrice: 350,
+        img: `longblazer.png`
       },
       {
         label: "Sweatshirt/Hoodie",
         Price: 250,
         viewPrice: "250/pcs",
         newQtyPrice: 250,
+        img: `hoodie.png`
       },
       {
-        label: "Winter Coats",
+        label: "Winter Jacket",
         Price: 350,
         viewPrice: "350/pcs",
         newQtyPrice: 350,
+        img : `winter_jacket.jpg`
       },
       {
         label: "Heavy Saree",
         Price: 350,
         viewPrice: "350/pcs",
         newQtyPrice: 350,
+        img: `heavysaree.png`
       },
       {
         label: "Medium Saree",
         Price: 300,
         viewPrice: "300/pcs",
         newQtyPrice: 300,
+        img : `mediumsaree.png`
       },
       {
         label: "Saree",
         Price: 250,
         viewPrice: "250/pcs",
         newQtyPrice: 250,
+        img : `saree.png`
       },
       {
         label: "Blouse",
         Price: 80,
         viewPrice: "80/pcs",
-
         newQtyPrice: 80,
+        img : `blouse.png`
       },
       {
         label: "Heavy Blouse",
         Price: 120,
         viewPrice: "120/pcs",
         newQtyPrice: 120,
+        img : `heavy_blouse.webp`
       },
       {
         label: "Lehnga",
         Price: 250,
         viewPrice: "250/pcs",
         newQtyPrice: 250,
+        img : `lehenga.png`
       },
       {
         label: "Medium Lehnga",
         Price: 500,
         viewPrice: "500/pcs",
         newQtyPrice: 500,
+        img : `mediumlehenga.png`
       },
       {
         label: "Heavy Lehnga",
         Price: 700,
         viewPrice: "700/pcs",
         newQtyPrice: 700,
+        img : `heavy_lehenga.jpg`
       },
       {
         label: "Heavy Dress",
         Price: 500,
         viewPrice: "500/pcs",
         newQtyPrice: 500,
+        img : `heavy_dress.jpg`
       },
       {
         label: "Dress",
         Price: 350,
         viewPrice: "350/pcs",
         newQtyPrice: 350,
+        img : `dress.png`
       },
       {
         label: "Heavy Gown",
         Price: 300,
         viewPrice: "300/pcs",
         newQtyPrice: 300,
+        img : `heavy_gown.jpg`
       },
       {
         label: "Gown",
         Price: 200,
         viewPrice: "200/pcs",
         newQtyPrice: 200,
+        img : `gown.jpg`
       },
       {
         label: "Dupatta",
         Price: 80,
         viewPrice: "80/pcs",
-
         newQtyPrice: 80,
+        img : `dupatta.jpg`
       },
       {
         label: "Heavy Dupatta",
         Price: 100,
         viewPrice: "100/pcs",
         newQtyPrice: 100,
+        img : `heavy_duptta.jpg`
+
       },
       {
         label: "Kurta Pyjama",
         Price: 250,
         viewPrice: "250/pcs",
         newQtyPrice: 250,
+        img : `kurta_pajama.jpg`
       },
       {
         label: "Shawl",
         Price: 200,
         viewPrice: "200/pcs",
         newQtyPrice: 200,
+        img : `shwal.jpg`
       },
       {
         label: "Sweater/Cardigan",
         Price: 200,
         viewPrice: "200/pcs",
         newQtyPrice: 200,
+        img : `cardigin.jpg`
       },
       {
         label: "Shrug",
         Price: 200,
         viewPrice: "200/pcs",
         newQtyPrice: 200,
+        img : `srug.jpg`
+
       },
       {
         label: "Leather Jackets",
@@ -278,12 +307,12 @@ function BillCart() {
         viewPrice: "400/pcs",
         newQtyPrice: 400,
       },
-      {
-        label: "Druvet(single)",
-        Price: 300,
-        viewPrice: "300/pcs",
-        newQtyPrice: 300,
-      },
+      // {
+      //   label: "Druvet(single)",
+      //   Price: 300,
+      //   viewPrice: "300/pcs",
+      //   newQtyPrice: 300,
+      // },
       {
         label: "Quilt(single)",
         Price: 350,
@@ -366,12 +395,14 @@ function BillCart() {
         Price: 500,
         viewPrice: "500/pcs",
         newQtyPrice: 500,
+        img : `sportsshoes.png`
       },
       {
         label: "Sneaker",
         Price: 500,
         viewPrice: "500/pcs",
         newQtyPrice: 500,
+        img : `sportsshoes.png`
       },
       {
         label: "Leather Shoe",
@@ -384,30 +415,35 @@ function BillCart() {
         Price: 600,
         viewPrice: "600/pcs",
         newQtyPrice: 600,
+        img : `suedeshoes.png`
       },
       {
         label: "Boots",
         Price: 700,
         viewPrice: "700/pcs",
         newQtyPrice: 700,
+        img : `boots.png`
       },
       {
         label: "Stilettos",
         Price: 600,
         viewPrice: "600/pcs",
         newQtyPrice: 600,
+        img : `stilettos.png`
       },
       {
         label: "Sliders",
         Price: 250,
         viewPrice: "250/pcs",
         newQtyPrice: 250,
+        img : `sliders.png`
       },
       {
         label: "Sandel",
         Price: 300,
         viewPrice: "300/pcs",
         newQtyPrice: 300,
+        img : `sandals.png`
       },
     ],
   });
