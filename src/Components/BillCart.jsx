@@ -502,7 +502,6 @@ function BillCart() {
   };
 
   const inputChange = (i, value, type) => {
-    console.log("thiss the valueeee->> ", value)
     const changedArr = [...items];
     if (value >= 0) {
       changedArr[i].quantity = !value ? "" : (changedArr[i].type === 'DryClean' ||  changedArr[i].type === 'ShoeSpa') ? Math.ceil(value * 1) : value * 1;
@@ -554,19 +553,26 @@ function BillCart() {
   const [dis, setDis] = useState(0);
 
   const handleSubmit = async () => {
+    const fTotal = (total - total * (dis / 100)).toFixed(2)
     setLoader(true)
     setCurrObj((prev) => {
-      return { ...prev, price: total };
+      return { ...prev, price: fTotal };
     });
     if (!currObj.customerName) {
       setLoader(false)
       return toast.error("Please fill all field :(")
-    }  
-    if (currObj.price<=0) {
+    } 
+    if((dis) > 100)
+    {
+      setLoader(false)
+      return toast.error("More than 100% discount is not allowed:(") 
+    }
+
+    if (fTotal<=0) {
       setLoader(false)
       return toast.error("Please add items")
-    } 
-    // return;       
+    }   
+
     try {
       const res = await pickupinstance.post(`/addOrder`, {...currObj, price: (total - total * (dis / 100)).toFixed(2)});
       const sendTemRes = await instance.post(

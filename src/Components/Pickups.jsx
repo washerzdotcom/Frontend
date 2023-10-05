@@ -36,8 +36,8 @@ const Pickups = () => {
           {/* <MannualPickup/> */}
         </Tab>
       </Tabs>
-      {activeTab === "Live" && <LiveDelivery />}
-      {activeTab === "Scheduled" && <SheduledDelivery/>}
+      {activeTab === "Live" && <LiveDelivery setActiveTab={setActiveTab}/>}
+      {activeTab === "Scheduled" && <SheduledDelivery setActiveTab={setActiveTab}/>}
       {activeTab === "Cancelled" && <Cancelled />}
       {activeTab === "Manual" && <MannualPickup />}
     </div>

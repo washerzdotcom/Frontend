@@ -12,9 +12,10 @@ import "../style/responsive.css";
 import socket from "../utills/socket";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../utills/context";
+import { toast } from "react-toastify";
 
 
-const LiveDelivery = () => {
+const LiveDelivery = ({setActiveTab}) => {
   const navigate = useNavigate();
   console.log("hiiiiiiiiiiiiiiiiiiiiii11111")
   const {currObj, setCurrObj } = useContext(AppContext);
@@ -36,6 +37,8 @@ const LiveDelivery = () => {
       const res = await pickupinstance.put(`/deletePickup/${id}`);
       if (res.status === 200) {
         getPickups();
+        setActiveTab('Cancelled')
+        toast.success("Pickup is successfully cancelled")
       }
     } catch (error) {
       console.log("Error:", error);
