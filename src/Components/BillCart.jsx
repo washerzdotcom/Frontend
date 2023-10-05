@@ -72,7 +72,6 @@ function BillCart() {
         viewPrice: "100/pc",
         newQtyPrice: 100,
         img: `shirt.png`
-        
       },
       {
         label: "Jeans",
@@ -518,7 +517,8 @@ function BillCart() {
       quantity: 1,
       price: obj.Price,
       newQtyPrice: obj.Price,
-      type: type
+      type: type,
+      img: obj.img
     };
     if (type === "DryClean") {
       setDryCleanItems({
@@ -606,6 +606,28 @@ function BillCart() {
     // console.log("this is data--> ", prev, el);
     return prev + el.newQtyPrice * 1;
   }, 0);
+
+  const restoreItem = (item, i) => 
+  {
+    const obj = {
+      label: item.heading,
+      Price: item.price,
+      viewPrice: item.subHeading,
+      newQtyPrice: item.price,
+      img: item.img
+    }
+    setItems([...items.filter((el, idx)=> idx !== i)])
+    if(item.type === 'DryClean')
+    {
+      setDryCleanItems((prev)=>{ return {...prev, children: [obj ,...prev.children]}})
+    }else if(item.type === 'laundry')
+    {
+      setLaundry((prev)=> { return {...prev, children: [obj ,...prev.children]}})
+    }else if(item.type === 'ShoeSpa')
+    {
+      setShoeSpa((prev)=> { return {...prev, children: [obj ,...prev.children]}})
+    }
+  }
   // console.log("this is total: ", total);
   return (
     <div
@@ -663,6 +685,7 @@ function BillCart() {
                 items={items}
                 handleQuantity={handleQuantity}
                 inputChange={inputChange}
+                restoreItem={restoreItem}
               />
             ) : (
               <h6>Add Items</h6>
