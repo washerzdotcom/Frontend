@@ -502,7 +502,6 @@ function BillCart() {
   };
 
   const inputChange = (i, value, type) => {
-    console.log("thiss the valueeee->> ", value)
     const changedArr = [...items];
     if (value >= 0) {
       changedArr[i].quantity = !value ? "" : (changedArr[i].type === 'DryClean' ||  changedArr[i].type === 'ShoeSpa') ? Math.ceil(value * 1) : value * 1;
