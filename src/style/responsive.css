@@ -68,5 +68,33 @@ table {
       font-size: 3.5vw;
       padding-left: 2px;
     }
+    
+   .del
+   {
+    width:10px;
+    height:37px;
+    margin-left: 10px;
+    border-radius: 50%;
+   }
 
+   .btn1
+   {
+     display: none;
+   }
+   
+
+   .head
+   {
+     font-size: 3vw;
+   }
+   
+   .price
+   {
+    font-size: 3vw;
+   }
+
+   .value 
+   {
+    margin-left: 10px;
+   }
   }

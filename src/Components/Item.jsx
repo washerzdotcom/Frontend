@@ -26,7 +26,7 @@ function Item({items, handleQuantity, inputChange,restoreItem}) {
   };
 
   const headingStyle = {
-    fontSize: '20px',
+    fontSize: '15px',
     margin: '0px',
   };
 
@@ -62,7 +62,7 @@ function Item({items, handleQuantity, inputChange,restoreItem}) {
                 <p style={paragraphStyle}>₹{item.subHeading}</p>
               </div>
               <div className='value' style={{display:"block", width:"50%"}}>
-                <button
+                <button className='btn1'
                   style={buttonStyle}
                   onClick={() => handleQuantity('-', index, item.quantity)}
                 >
@@ -82,7 +82,7 @@ function Item({items, handleQuantity, inputChange,restoreItem}) {
                   value={item.quantity}
                   onChange={(e) => inputChange(index, e.target.value)}
                 />
-                <button
+                <button className='btn1'
                   style={buttonStyle}
                   onClick={() => handleQuantity('+', index, item.quantity)}
                 >
@@ -96,7 +96,7 @@ function Item({items, handleQuantity, inputChange,restoreItem}) {
                 </span>
               </div>
               <div style={{display:"flex", justifyContent: 'flex-end',width:"20%"}}>
-              <button className='btn btn-danger pl-5 d-flex justify-content-center' onClick={() => {restoreItem(item, index)}}>x</button>
+              <button className='btn btn-danger pl-5 d-flex justify-content-center del' onClick={() => {restoreItem(item, index)}}>x</button>
               </div>
             </div>
           </div>
