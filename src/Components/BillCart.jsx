@@ -651,7 +651,7 @@ function BillCart() {
           >
             Added Items:
           </h5>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
             {items.length > 0 ? (
               <Item
                 items={items}
