@@ -16,7 +16,6 @@ function BillModal({
   const { contactNo, customerName, address } = currObj;
   const addOrder = async () => {
     try {
-      console.log("ewhguirehdghreuhgre---------------> ", currObj);
       const res = await pickupinstance.post(`/addOrder`, currObj);
       const sendTemRes = await instance.post(
         `/sendTemplateMessage?whatsappNumber=${currObj.contactNo}`,
@@ -35,8 +34,6 @@ function BillModal({
           ],
         }
       );
-      console.log("thi is the sendTemRes---->> ", sendTemRes);
-      console.log("addOrder", res.data);
       handledelete(currObj.id);
     } catch (error) {
       console.log("this is error", error);

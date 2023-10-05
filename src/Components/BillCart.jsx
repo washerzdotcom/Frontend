@@ -14,7 +14,6 @@ function BillCart() {
   const { currObj, setCurrObj } = useContext(AppContext);
   const [loader, setLoader] = useState(false);
   const [items, setItems] = useState([]);
-  // console.log("this is the curr obj ---> ", currObj)
   const [laundry, setLaundry] = useState({
     label: "Laundry",
     children: [
@@ -482,8 +481,12 @@ function BillCart() {
     ],
   });
 
-  const handleQuantity = (type, i, qty) => {
+  const handleQuantity = (type, i, qty, item, index) => {
     const changedArr = [...items];
+  if(qty-1 === 0 && type === '-')
+  {
+    return restoreItem(item, index)
+  }
     console.log("qty ", qty)
     if (changedArr[i].quantity === 0 && type === "-") return;
     if (type === "-") {
@@ -500,7 +503,11 @@ function BillCart() {
     });
   };
 
-  const inputChange = (i, value, type) => {
+  const inputChange = (i, value, type, item, index) => {
+    if(value+'' === '0')
+    {
+      return restoreItem(item, index)
+    }
     const changedArr = [...items];
     if (value >= 0) {
       changedArr[i].quantity = !value ? "" : (changedArr[i].type === 'DryClean' ||  changedArr[i].type === 'ShoeSpa') ? Math.ceil(value * 1) : value * 1;

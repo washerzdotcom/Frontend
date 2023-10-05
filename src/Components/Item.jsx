@@ -52,7 +52,6 @@ function Item({items, handleQuantity, inputChange,restoreItem}) {
       <div style={listContainerStyle}>
         {items.map((item, index) => (
           <div key={index} style={listItemStyle}>
-            {console.log("this is render item---->> ", item)}
             <div style={innerDivStyle}>
               {/* <div style={{display:"flex", justifyContent: 'flex-start',width:"20%"}}>
                 <img style={{height: '60px', width: '70px', borderRadius: '50%', border: '2px solid teal',  objectFit:"fit"}}src={require(`../assets/washrzimages/${item.img}`)}/>
@@ -64,7 +63,7 @@ function Item({items, handleQuantity, inputChange,restoreItem}) {
               <div className='value' style={{display:"block", width:"50%"}}>
                 <button
                   style={buttonStyle}
-                  onClick={() => handleQuantity('-', index, item.quantity)}
+                  onClick={() => handleQuantity('-', index, item.quantity, item, index)}
                 >
                   -
                 </button>
@@ -80,11 +79,11 @@ function Item({items, handleQuantity, inputChange,restoreItem}) {
                   }}
                   type='number'
                   value={item.quantity}
-                  onChange={(e) => inputChange(index, e.target.value)}
+                  onChange={(e) => inputChange(index, e.target.value, '', item, index)}
                 />
                 <button
                   style={buttonStyle}
-                  onClick={() => handleQuantity('+', index, item.quantity)}
+                  onClick={() => handleQuantity('+', index, item.quantity, item, index)}
                 >
                   +
                 </button>

@@ -5,7 +5,6 @@ import "../style/responsive.css"
 
 const BillCustomerInfo = (currObj) => {
   const {currObj: {customerName, contactNo, address} } = useContext(AppContext);
-  console.log("this is the ", {customerName, contactNo, address})
   return (
     <>
  {/* <h5 style={{paddingLeft: '20px', paddingTop:'10px', paddingBottom:"10px"}}>Customer Info:</h5> */}
