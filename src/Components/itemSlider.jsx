@@ -95,9 +95,6 @@ const ItemSlider = ({ dryCleanItems, shoeSpa, laundry, type, handleClick }) => {
         swipeable
       >
         {Obj?.children?.map((item, index) => {
-          {
-            console.log("img---------- ", item.img);
-          }
           return (
             <div
               className="slider"

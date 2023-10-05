@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Item({items, handleQuantity, inputChange}) {
+function Item({items, handleQuantity, inputChange,restoreItem}) {
  
   const containerStyle = {
     width: '100%',
@@ -52,7 +52,11 @@ function Item({items, handleQuantity, inputChange}) {
       <div style={listContainerStyle}>
         {items.map((item, index) => (
           <div key={index} style={listItemStyle}>
+            {console.log("this is render item---->> ", item)}
             <div style={innerDivStyle}>
+              {/* <div style={{display:"flex", justifyContent: 'flex-start',width:"20%"}}>
+                <img style={{height: '60px', width: '70px', borderRadius: '50%', border: '2px solid teal',  objectFit:"fit"}}src={require(`../assets/washrzimages/${item.img}`)}/>
+              </div> */}
               <div className='head' style={{display:"block", width:"50%"}}>
                 <h2 style={headingStyle}>{item.heading}</h2>
                 <p style={paragraphStyle}>₹{item.subHeading}</p>
@@ -90,6 +94,9 @@ function Item({items, handleQuantity, inputChange}) {
                 <span >
                   ₹{item.quantity > 0 ? (item.quantity * item.price).toFixed(2) : 0}
                 </span>
+              </div>
+              <div style={{display:"flex", justifyContent: 'flex-end',width:"20%"}}>
+              <button className='btn btn-danger pl-5 d-flex justify-content-center' onClick={() => {restoreItem(item, index)}}>x</button>
               </div>
             </div>
           </div>
