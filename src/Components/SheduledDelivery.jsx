@@ -12,9 +12,10 @@ import "../style/responsive.css";
 import socket from "../utills/socket";
 import { AppContext } from "../utills/context";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
-const SheduledDelivery = ({type}) => {
+const SheduledDelivery = ({type, setActiveTab}) => {
   const {currObj, setCurrObj } = useContext(AppContext);
   const [data, setData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -35,9 +36,8 @@ const SheduledDelivery = ({type}) => {
       console.log("console", res);
       if (res.status === 200) {
         getPickups();
-        // toast.success("Order Added Successfully!", {
-        //   position: toast.POSITION.TOP_CENTER
-        // });
+        setActiveTab('Cancelled')
+        toast.success("Pickup is successfully cancelled")
       }
     } catch (error) {
       console.log("this is error", error);

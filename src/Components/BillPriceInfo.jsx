@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import "../style/responsive.css"
+import { toast } from 'react-toastify'
 
 const BillPriceInfo = ({total, value, setValue}) => {
  
@@ -29,7 +30,7 @@ const BillPriceInfo = ({total, value, setValue}) => {
               <input
                 type={"number"}
                 className='col1'
-                // value={value}
+                // value={value+'%'}
                 onChange={(e) => {
                   setValue(e.target.value*1)
                 //   setdis(e.target.value);
