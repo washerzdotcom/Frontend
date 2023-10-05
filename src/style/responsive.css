@@ -63,7 +63,11 @@ table {
       width: 100%;
     }
 
+    .name
+    {
+      font-size: 3.5vw;
+      padding-left: 2px;
+      display: inline-block;
+    }
 
   }
-
-
