@@ -559,13 +559,14 @@ function BillCart() {
       return { ...prev, price: total };
     });
     if (!currObj.customerName) {
+      setLoader(false)
       return toast.error("Please fill all field :(")
     }  
-
-    console.log("---------------------------------->> ", currObj)
-    
-    return;
-    
+    if (currObj.price<=0) {
+      setLoader(false)
+      return toast.error("Please add items")
+    } 
+    // return;       
     try {
       const res = await pickupinstance.post(`/addOrder`, {...currObj, price: (total - total * (dis / 100)).toFixed(2)});
       const sendTemRes = await instance.post(

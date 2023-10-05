@@ -23,9 +23,9 @@ const BillPriceInfo = ({total, value, setValue}) => {
             <div style={{marginBottom:"20px"}}>Discount :</div>
             <div>Final Bill : </div>
           </div>
-          <div className='col'>
+          <div className='col' style={{marginLeft:"50px"}}>
             <div style={{marginBottom:"20px"}}> &#x20B9;{total}</div>
-            <div style={{marginBottom:"20px", border:"2px solid"}}>
+            <div style={{marginBottom:"20px",}}>
               <input
                 type={"number"}
                 className='col1'
