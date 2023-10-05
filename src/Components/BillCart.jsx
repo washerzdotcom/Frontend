@@ -600,7 +600,7 @@ function BillCart() {
         }
       );
       await handledelete(currObj.id);
-      toast.success("Order has been created, check order page :)");
+      toast.success("Order Sucessfully Created");
       navigate('/order')
       setLoader(false)
     } catch (error) {

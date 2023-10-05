@@ -50,6 +50,7 @@ const CustomerDetails = () => {
             <Table striped bordered hover responsive>
               <thead>
                 <tr>
+                  <th>Order No.</th>
                   <th>Name</th>
                   <th>Contact Number</th>
                   <th>Address</th>
@@ -61,6 +62,7 @@ const CustomerDetails = () => {
                 {customer.map((user) => {
                   return (
                     <tr key={user._id}>
+                      <td>{user.order_id}</td>
                       <td>{user.customerName}</td>
                       <td>{user.contactNo}</td>
                       <td>{user.address}</td>
