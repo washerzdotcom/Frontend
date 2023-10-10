@@ -11,14 +11,13 @@ import Loader from "./Loader";
 import "../style/responsive.css";
 import socket from "../utills/socket";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../utills/context";
 import { toast } from "react-toastify";
+import AuthContext from "../context/AuthContext";
 
 
 const LiveDelivery = ({setActiveTab}) => {
   const navigate = useNavigate();
-  console.log("hiiiiiiiiiiiiiiiiiiiiii11111")
-  const {currObj, setCurrObj } = useContext(AppContext);
+  const {currObj, setCurrObj } = useContext(AuthContext);
   const [data, setData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const pageSize = 8;

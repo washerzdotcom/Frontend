@@ -10,13 +10,13 @@ import ClipLoader from "react-spinners/ClipLoader";
 import Loader from "./Loader";
 import "../style/responsive.css";
 import socket from "../utills/socket";
-import { AppContext } from "../utills/context";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import AuthContext from "../context/AuthContext";
 
 
 const SheduledDelivery = ({type, setActiveTab}) => {
-  const {currObj, setCurrObj } = useContext(AppContext);
+  const {currObj, setCurrObj } = useContext(AuthContext);
   const [data, setData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const pageSize = 8;
