@@ -684,8 +684,12 @@ function BillCart() {
               color: "white",
             }}
           >
-            Added Items:
+           Added Items:
           </h5>
+          <div style={{margin:"20px", border:"2px black solid" , borderRadius:"10px"
+        }}>
+           <SearchBar handleClick={handleClick}/>
+           </div>
           <div style={{ display: "flex", justifyContent: "space-around" }}>
             {items.length > 0 ? (
               <Item
