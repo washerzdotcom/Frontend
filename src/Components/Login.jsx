@@ -23,7 +23,7 @@ import React, { useState } from 'react';
   
     return (
       <MDBContainer  className=" my-5 d-flex justify-content-center align-items-center">
-        <MDBCard className="max-height-card shadow p-3 ">
+        <MDBCard style={{backgroundColor: 'teal'}}className="max-height-card shadow p-3 ">
           <MDBRow className='g-0'>
             <MDBCol md='6'>
               <MDBCardImage src={img2} alt="login form" className='rounded-start w-100'/>

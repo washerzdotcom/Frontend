@@ -10,13 +10,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import BillCart from './Components/BillCart';
 import Protected from './Components/Protected';
 import Login from './Components/Login';
-import AuthContext from './context/AuthContext';
-import { useContext } from 'react';
-
+import useAuth from './hooks/useAuth';
 
 const App =() =>
 {
-    const { currObj } = useContext(AuthContext);
+    const { currObj } = useAuth();
     return <>
       <Router>
         <Header/>

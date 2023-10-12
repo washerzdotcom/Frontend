@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Item from "./Item";
 import ItemSlider from "./itemSlider";
 import BillCustomerInfo from "./BillCustomerInfo";
@@ -7,11 +7,12 @@ import { Button, Spinner } from "react-bootstrap";
 import { instance, pickupinstance } from "../config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
+import SearchBar from './SearchBar'
+import useAuth from "../hooks/useAuth";
 
 function BillCart() {
   const navigate = useNavigate();
-  const { currObj, setCurrObj } = useContext(AuthContext);
+  const { currObj, setCurrObj } = useAuth();
   const [loader, setLoader] = useState(false);
   const [items, setItems] = useState([]);
   const [laundry, setLaundry] = useState({

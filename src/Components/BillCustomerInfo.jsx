@@ -1,10 +1,9 @@
-import { Center } from '@chakra-ui/react'
-import React, { useContext } from 'react'
+import React from 'react'
 import "../style/responsive.css"
-import AuthContext from '../context/AuthContext'
+import useAuth from '../hooks/useAuth'
 
-const BillCustomerInfo = (currObj) => {
-  const {currObj: {customerName, contactNo, address} } = useContext(AuthContext);
+const BillCustomerInfo = () => {
+  const {currObj: {customerName, contactNo, address} } = useAuth();
   return (
     <>
  {/* <h5 style={{paddingLeft: '20px', paddingTop:'10px', paddingBottom:"10px"}}>Customer Info:</h5> */}
