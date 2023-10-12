@@ -64,7 +64,7 @@ function Login() {
   return (
     <MDBContainer className=" my-5 d-flex justify-content-center align-items-center">
       <MDBCard
-        style={{ backgroundColor: "teal" }}
+        style={{ backgroundColor: "white" }}
         className="max-height-card shadow p-3 "
       >
         <MDBRow className="g-0">
