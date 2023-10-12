@@ -17,7 +17,8 @@ import useAuth from './hooks/useAuth';
 
 const App =() =>
 {
-    const { currObj } = useAuth();
+    const { currObj, auth } = useAuth();
+    console.log("i am on root-->> ", auth)
     return <>
       <Router>
         <Header/>

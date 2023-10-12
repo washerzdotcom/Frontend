@@ -4,8 +4,11 @@ import { HashLink } from "react-router-hash-link";
 import img1 from "../assets/washrzlogonew.png"
 import Home from './Home';
 import Profile from './Profile';
+import useAuth from '../hooks/useAuth';
 
 function Header() {
+  const { auth } = useAuth();
+  console.log("hiii---> ", auth.profile)
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -31,7 +34,7 @@ function Header() {
             <a href="/plant">Plant</a>
           </li>
           <li className="navbar-link">
-            <Profile/>
+          {auth.profile?  <Profile/> : 'You Are Not Loged In'}
           </li>
         </ul>
       </div>

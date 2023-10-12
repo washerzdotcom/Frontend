@@ -3,8 +3,10 @@ import { PopupMenu } from "react-simple-widgets";
 import "../style/profile.scss"
 import "../style/responsive.css"
 import { HashLink } from "react-router-hash-link";
+import useAuth from '../hooks/useAuth';
 
 const Profile = () => {
+  const { auth: {profile: {name, email, role}}} = useAuth();
   return (
     <>
      <div id="app">
@@ -17,8 +19,8 @@ const Profile = () => {
                 <span>K</span>
               </div>
 
-              <h5 className="text-center mb-0" style={{color:"white"}}>John Doe</h5>
-              <p className="text-center mb-2" style={{color:"white"}}>jd@gmail.com</p>
+              <h5 className="text-center mb-0" style={{color:"white"}}>{name}</h5>
+              <p className="text-center mb-2" style={{color:"white"}}>{email}</p>
 
               <hr />
 
@@ -29,7 +31,7 @@ const Profile = () => {
                 ROLES
               </p>
               <p style={{ fontSize: 12, color: "#ffff"}}>
-                {["Submitter", "Project manager", "Change control board"].join(
+                {[role].join(
                   ", "
                 )}
               </p>
