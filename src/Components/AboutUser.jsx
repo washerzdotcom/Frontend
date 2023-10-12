@@ -6,6 +6,7 @@ import drivingLicence from '../assets/washrzimages/dummy_driving_licence.jpg';
 import profile from '../assets/washrzimages/dummy_profile_image.jpg';
 import '../style/AboutUser.css';
 import { Button } from 'react-bootstrap';
+import useAuth from '../hooks/useAuth';
 
 const initialUser = {
   id: 1,
@@ -20,6 +21,7 @@ const initialUser = {
 };
 
 const AboutUser = () => {
+  const { auth: {profile: {name, email, role}}} = useAuth();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState({ ...initialUser });
@@ -52,15 +54,15 @@ const AboutUser = () => {
           <img src={editedUser?.photo} alt="User Photo" />
         </div>
         <div className="profile-details">
-          <h2>{editedUser?.name}</h2>
+          <h2>{name}</h2>
           <p>
-            <strong>Role:</strong> {editedUser?.role}
+            <strong>Role:</strong> {role}
           </p>
           <p>
             <strong>Mobile Number:</strong> {editedUser?.mobileNumber}
           </p>
           <p>
-            <strong>User ID:</strong> {editedUser?.userId}
+            <strong>User ID:</strong> {email}
           </p>
           {isEditing ? (
             <div>
