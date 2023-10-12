@@ -12,9 +12,9 @@ import AddUser from './AddUser';
 const Home = () => {
   return (
     <div style={{display:'flex', alignItems:'center',justifyContent:'center', height:"80vh"}}>
-    {/* <h1>
+    <h1>
     We are Washrz.com!
-    </h1> */}
+    </h1>
      {/* <div></div>
      <div></div> */}
      {/* <BillCustomerInfo/> */}

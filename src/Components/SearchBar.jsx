@@ -10,28 +10,22 @@ const newArr = [
 ];
 
 const DropdownExampleSearchSelection = ({ handleClick }) => {
-  let updatedArr = newArr.map((el) => {
-    return {
-      key: "bj",
-      value: el.label,
-      image: { avatar: true, src: require(`../assets/washrzimages/${el.img}`) },
-      text: `${el.label}(${el.viewPrice})`,
-      ...el,
-    };
-  });
-
   const [selectedItem, setSelectedItem] = useState(null);
-  const [dropdownOptions, setDropdownOptions] = useState(updatedArr);
+
+  const dropdownOptions = newArr.map((el) => ({
+    key: "bj",
+    value: el.label,
+    image: { avatar: true, src: require(`../assets/washrzimages/${el.img}`) },
+    text: `${el.label}(${el.viewPrice})`,
+    ...el,
+  }));
 
   const handleDropdownChange = (e, data) => {
     const selectedItemValue = data.value;
-    const selectedItemObject = updatedArr.find(
+    const selectedItemObject = dropdownOptions.find(
       (item) => item.value === selectedItemValue
     );
-    updatedArr = updatedArr.filter((item) => item.value !== selectedItemValue);
-
     setSelectedItem(selectedItemObject);
-    setDropdownOptions(updatedArr); // Update the dropdown options
   };
 
   return (
@@ -45,7 +39,7 @@ const DropdownExampleSearchSelection = ({ handleClick }) => {
           selection
           options={dropdownOptions}
           onChange={handleDropdownChange}
-          value={selectedItem ? selectedItem.value : null} // Set the selected value
+          value={selectedItem ? selectedItem.value : ""}
         />
       </div>
       <button
@@ -56,7 +50,11 @@ const DropdownExampleSearchSelection = ({ handleClick }) => {
           width: "10%",
         }}
         onClick={() => {
-          handleClick(selectedItem, selectedItem.type);
+          if (selectedItem) {
+            handleClick(selectedItem, selectedItem.type);
+            // Clear the selected item after adding
+            setSelectedItem(null);
+          }
         }}
       >
         Add

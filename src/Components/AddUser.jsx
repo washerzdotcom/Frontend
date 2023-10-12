@@ -8,6 +8,9 @@ function App() {
   const { control, handleSubmit, register, formState: { errors }, reset } = useForm();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [photoPreview, setPhotoPreview] = useState(null);
+  const [drivingLicencePreview, setDrivingLicencePreview] = useState(null);
+  const [aadhaarCardPreview, setAadhaarCardPreview] = useState(null);
 
   const onSubmit = (data) => {
     if (data.password !== data.confirmPassword) {
@@ -19,6 +22,9 @@ function App() {
 
     // Reset the form after submission
     reset();
+    setPhotoPreview(null);
+    setDrivingLicencePreview(null);
+    setAadhaarCardPreview(null);
   };
 
   const togglePasswordVisibility = () => {
@@ -29,6 +35,17 @@ function App() {
     setConfirmPasswordVisible(!confirmPasswordVisible);
   };
 
+  const handleImageFileChange = (fieldName, event, setPreview) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="container1">
       <h1 style={{
@@ -36,8 +53,8 @@ function App() {
         justifyContent: "center",
         width: "100%",
         marginBottom: "20px",
-        fontSize: "24px", // Adjust font size for smaller screens
-        textAlign: "center", // Center align for smaller screens
+        fontSize: "24px",
+        textAlign: "center",
       }}>Add User</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
         <div className="form-group">
@@ -70,20 +87,38 @@ function App() {
 
         <div className="form-group">
           <label>Photo</label>
-          <input type="file" {...register('photo', { required: true })} className="form-control-file" />
+          <input
+            type="file"
+            {...register('photo', { required: true })}
+            className="form-control-file"
+            onChange={(event) => handleImageFileChange('photo', event, setPhotoPreview)}
+          />
           {errors.photo && <span className="input-error">This field is required</span>}
+          {photoPreview && <img src={photoPreview} alt="Photo Preview" style={{ maxWidth: '100px', marginTop: '10px' }} />}
         </div>
 
         <div className="form-group">
           <label>Aadhaar Card</label>
-          <input type="file" {...register('aadhaarCard', { required: true })} className="form-control-file" />
+          <input
+            type="file"
+            {...register('aadhaarCard', { required: true })}
+            className="form-control-file"
+            onChange={(event) => handleImageFileChange('aadhaarCard', event, setAadhaarCardPreview)}
+          />
           {errors.aadhaarCard && <span className="input-error">This field is required</span>}
+          {aadhaarCardPreview && <img src={aadhaarCardPreview} alt="Aadhaar Card Preview" style={{ maxWidth: '100px', marginTop: '10px' }} />}
         </div>
 
         <div className="form-group">
           <label>Driving Licence</label>
-          <input type="file" {...register('drivingLicence', { required: true })} className="form-control-file" />
+          <input
+            type="file"
+            {...register('drivingLicence', { required: true })}
+            className="form-control-file"
+            onChange={(event) => handleImageFileChange('drivingLicence', event, setDrivingLicencePreview)}
+          />
           {errors.drivingLicence && <span className="input-error">This field is required</span>}
+          {drivingLicencePreview && <img src={drivingLicencePreview} alt="Driving Licence Preview" style={{ maxWidth: '100px', marginTop: '10px' }} />}
         </div>
 
         <div className="form-group">
