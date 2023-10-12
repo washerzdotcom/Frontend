@@ -7,27 +7,18 @@ import CustomerDetails from './Components/CustomerDetails';
 import Plant from './Components/Plant';
 import Home from './Components/Home';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
-import { AppContext } from './utills/context';
 import BillCart from './Components/BillCart';
 import Protected from './Components/Protected';
 import AddUser from "./Components/AddUser"
 import UserListing from './Components/UserListing';
 import AboutUser from './Components/AboutUser';
-
+import Login from './Components/Login';
+import useAuth from './hooks/useAuth';
 
 const App =() =>
 {
-  const [currObj, setCurrObj] = useState({
-    contactNo: "",
-    customerName: "",
-    address: "",
-    items: [],
-    price: 0,
-    id: "",
-  }); 
+    const { currObj } = useAuth();
     return <>
-    <AppContext.Provider value={{ currObj, setCurrObj }}>
       <Router>
         <Header/>
         <Routes>
@@ -39,6 +30,7 @@ const App =() =>
           <Route path ='/adduser' element={<AddUser/>}/>
           <Route path ='/userlisting' element={<UserListing/>}/>
           <Route path ='/aboutuser' element={<AboutUser/>}/>
+          <Route path='/login' element={<Login/>}/>
           <Route path='/Product-Bill' element={
           <Protected currObj={currObj}>
           <BillCart/>
@@ -46,7 +38,6 @@ const App =() =>
           }/>
         </Routes>
       </Router>
-      </AppContext.Provider>
     </>
 }
 export default App;

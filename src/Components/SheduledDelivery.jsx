@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { instance, pickupinstance } from "../config";
+import { pickupinstance } from "../config";
 import ReactPaginate from "react-paginate";
 import constant from "../constant";
 import moment from "moment";
 import Example from "./SucessModal";
 import BillModal from "./BillModal";
-import ClipLoader from "react-spinners/ClipLoader";
 import Loader from "./Loader";
 import "../style/responsive.css";
 import socket from "../utills/socket";
-import { AppContext } from "../utills/context";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import useAuth from "../hooks/useAuth";
+
 
 
 const SheduledDelivery = ({type, setActiveTab}) => {
-  const {currObj, setCurrObj } = useContext(AppContext);
+  const {currObj, setCurrObj } = useAuth();
   const [data, setData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const pageSize = 8;
