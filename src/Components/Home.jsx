@@ -17,7 +17,6 @@ const Home = () => {
     </h1> */}
      {/* <div></div>
      <div></div> */}
-     <Login/>
      {/* <BillCustomerInfo/> */}
      {/* <BillCart/> */}
      {/* <BillPriceInfo/> */}
