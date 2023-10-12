@@ -2,6 +2,7 @@ import React from 'react'
 import { PopupMenu } from "react-simple-widgets";
 import "../style/profile.scss"
 import "../style/responsive.css"
+import { HashLink } from "react-router-hash-link";
 
 const Profile = () => {
   return (
@@ -37,17 +38,20 @@ const Profile = () => {
 
               <div
                 className="list-group list-group-flush"
-                style={{ margin: "0 -24px 0"}}
+                style={{ margin: "0px 0px"}}
               >
-                <button className="list-group-item list-group-item-action px-4" style={{backgroundColor:"teal",color:"#ffff"}}>
-                  <small>Change Requests</small>
-                </button>
-                <button className="list-group-item list-group-item-action px-4"style={{backgroundColor:"teal",color:"#ffff"}}>
+                <HashLink to='/userlisting' className="list-group-item list-group-item-action px-4" style={{backgroundColor:"teal",color:"#ffff", width:"190px"}}>
+                  <small>User List</small>
+                </HashLink>
+                {/* <button className="list-group-item list-group-item-action px-4"style={{backgroundColor:"teal",color:"#ffff"}}>
                   <small>Pending Requests</small>
                 </button>
                 <button className="list-group-item list-group-item-action px-4"style={{backgroundColor:"teal",color:"#ffff"}}>
                   <small>Other Requests</small>
-                </button>
+                </button> */}
+                <HashLink to='/aboutuser' className="list-group-item list-group-item-action px-4" style={{backgroundColor:"teal",color:"#ffff", width:"190px"}}>
+                  <small>Profile</small>
+                </HashLink>
               </div>
 
               <hr style={{ margin: "0 -24px 24px" }} />

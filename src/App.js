@@ -11,6 +11,9 @@ import { useState } from 'react';
 import { AppContext } from './utills/context';
 import BillCart from './Components/BillCart';
 import Protected from './Components/Protected';
+import AddUser from "./Components/AddUser"
+import UserListing from './Components/UserListing';
+import AboutUser from './Components/AboutUser';
 
 
 const App =() =>
@@ -33,6 +36,9 @@ const App =() =>
           <Route path='/order' element={<Order/>}/>
           <Route path='/customerdetails' element={<CustomerDetails/>}/>
           <Route path='/plant' element={<Plant/>}/>
+          <Route path ='/adduser' element={<AddUser/>}/>
+          <Route path ='/userlisting' element={<UserListing/>}/>
+          <Route path ='/aboutuser' element={<AboutUser/>}/>
           <Route path='/Product-Bill' element={
           <Protected currObj={currObj}>
           <BillCart/>
