@@ -544,7 +544,7 @@ function BillCart() {
         children: laundry.children.filter((el) => el.label !== obj.label),
       });
     }
-    if(JSON.stringify(items[items.length-1]) === JSON.stringify(newObj))
+    if(JSON.stringify(items[items.length-1]) === JSON.stringify(newObj))  //for not adding item more than ones in list from serach bar
     return;
     setItems((prev) => [...prev, newObj]);
     const nitems = [...items, newObj].filter((el) => el.quantity !== 0);
