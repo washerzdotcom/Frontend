@@ -20,7 +20,6 @@ import { toast } from "react-toastify";
 
 function Login() {
   const [value, setValue] = useState({
-    role: "admin",
     email: "",
     password: "",
   });
@@ -30,15 +29,9 @@ function Login() {
   const from = location.state?.from?.pathname || "/";
 
   const handleUserTypeChange = (e) => {
-    if (e.target.type === "radio") {
       setValue((prev) => {
-        return { ...prev, role: e.target.value };
-      });
-    } else {
-      setValue((prev) => {
-        return { ...prev, [e.target.type]: e.target.value };
-      });
-    }
+          return { ...prev, [e.target.type]: e.target.value };
+        });
   };
 
   const handleSubmit = async () => {
@@ -48,7 +41,6 @@ function Login() {
         "/auth/login",
         JSON.stringify({ email, password })
       );
-      console.log("jso data---->>>>",JSON.stringify(response?.data?.tokens));
       toast.success('Sucessfully Logedin :)')
       const accessToken = response?.data?.tokens.accessToken;
       const role = response?.data?.data.user?.role;
@@ -97,7 +89,7 @@ function Login() {
               </h5>
 
               {/* Radio buttons for user type */}
-              <h7
+              {/* <h7
                 className="fw-normal my-4 pb-3"
                 style={{ letterSpacing: "1px" }}
               >
@@ -148,7 +140,7 @@ function Login() {
                     Plant Manager
                   </label>
                 </div>
-              </div>
+              </div> */}
 
               <MDBInput
                 wrapperClass="mb-4"
