@@ -14,16 +14,38 @@ import UserListing from './Components/UserListing';
 import AboutUser from './Components/AboutUser';
 import Login from './Components/Login';
 import useAuth from './hooks/useAuth';
+import Layout from './Components/Layout';
+import RequireAuth from './Components/RequireAuth';
+import Unauthorized from './Components/Unauthorized';
+import { useEffect } from 'react';
+import useRefreshToken from './hooks/useRefreshToken';
 
 const App =() =>
 {
-    const { currObj, auth } = useAuth();
-    console.log("i am on root-->> ", auth)
+  const refresh =  useRefreshToken();
+  const { setAuth } = useAuth();
+     useEffect(()=>
+     {
+        (async ()=>
+        {
+          const response = await refresh();
+           const role = response?.user?.role;
+           const profile = response?.user;
+           console.log("response-->> ", response)
+          setAuth({ user: profile.email, pwd: profile.password, role,profile, accessToken: response.accessToken });
+          }
+        )()
+     }, [])
+    const { currObj } = useAuth();
     return <>
       <Router>
         <Header/>
         <Routes>
-          <Route path='/' element={<Home/>}/>
+        <Route path="/" element={<Layout />}>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/unauthorized' element={<Unauthorized/>}/>
+          <Route element={<RequireAuth allowedRoles={['admin']} />}>
+          <Route path='/home' element={<Home/>}/>
           <Route path='/pickups' element={<Pickups/>}/>
           <Route path='/order' element={<Order/>}/>
           <Route path='/customerdetails' element={<CustomerDetails/>}/>
@@ -31,12 +53,13 @@ const App =() =>
           <Route path ='/adduser' element={<AddUser/>}/>
           <Route path ='/userlisting' element={<UserListing/>}/>
           <Route path ='/aboutuser' element={<AboutUser/>}/>
-          <Route path='/login' element={<Login/>}/>
           <Route path='/Product-Bill' element={
           <Protected currObj={currObj}>
           <BillCart/>
         </Protected>
           }/>
+          </Route>
+          </Route>
         </Routes>
       </Router>
     </>

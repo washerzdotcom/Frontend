@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import { useForm, Controller } from "react-hook-form";
 import { Form, Button } from "react-bootstrap";
-import { pickupinstance } from "../config";
-import Loader from "./Loader";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 
 
@@ -40,11 +39,12 @@ function LivePickupForm() {
     reset
   } = useForm();
   const [isLoading, setIsLoading] = useState(false); // Initialize loading state as false
+  const axiosPrivate = useAxiosPrivate();
 
   const onSubmit = async (data) => {
     setIsLoading(true); // Set loading to true when the form is submitted
     try {
-      const res = await pickupinstance.post(`/addPickup`, data);
+      const res = await axiosPrivate.post(`/addPickup`, data);
       reset({
         name: '',
         contact: '',
@@ -166,11 +166,12 @@ function SchedulePickupForm() {
     formState: { errors },
   } = useForm();
   const [isLoading, setIsLoading] = useState(false);
+  const axiosPrivate = useAxiosPrivate();
 
   const onSubmit = async (data) => {
     setIsLoading(true); // Set loading to true when the form is submitted
     try {
-      const res = await pickupinstance.post(`/addSchedulePickup`, data);
+      const res = await axiosPrivate.post(`/addSchedulePickup`, data);
       reset({
         name: '',
         contact: '',

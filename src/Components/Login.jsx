@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBBtn,
   MDBContainer,
@@ -7,14 +7,13 @@ import {
   MDBCardImage,
   MDBRow,
   MDBCol,
-  MDBIcon,
   MDBInput,
 } from "mdb-react-ui-kit";
 import img1 from "../assets/washrzlogohd-removebg-preview.png";
 import img2 from "../assets/loginTemplate.png";
 import "../style/login.css";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios, { pickupinstance } from "../config.js";
+import { useNavigate } from "react-router-dom";
+import axios from "../config.js";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
 
@@ -23,10 +22,17 @@ function Login() {
     email: "",
     password: "",
   });
-  const { setAuth } = useAuth();
+  const { setAuth, auth} = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  useEffect(()=> {
+     if(auth.user)
+     {
+      navigate('/home')
+     }
+      console.log("hello user--> ", auth)
+  })
+  // const location = useLocation();
+  // const from = location.state?.from?.pathname || "/";
 
   const handleUserTypeChange = (e) => {
       setValue((prev) => {
@@ -37,16 +43,21 @@ function Login() {
   const handleSubmit = async () => {
     const { email, password } = value;
     try {
-      const response = await pickupinstance.post(
+      const response = await axios.post(
         "/auth/login",
-        JSON.stringify({ email, password })
+        JSON.stringify({ email, password }),
+          {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true
+        }
       );
       toast.success('Sucessfully Logedin :)')
       const accessToken = response?.data?.tokens.accessToken;
+      localStorage.setItem('token', response?.data?.tokens.refreshToken)
       const role = response?.data?.data.user?.role;
       const profile = response?.data?.data.user
       setAuth({ user: email, pwd: password, role,profile, accessToken });
-      navigate('/')
+      navigate('/home')
 
     } catch (err) {
       if (!err?.response) {

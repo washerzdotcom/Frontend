@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { pickupinstance } from "../config";
 import ReactPaginate from "react-paginate";
-import constant from "../constant";
 import moment from "moment";
 import Example from "./SucessModal";
 import BillModal from "./BillModal";
@@ -12,6 +10,7 @@ import socket from "../utills/socket";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useAuth from "../hooks/useAuth";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 
 
@@ -27,12 +26,13 @@ const SheduledDelivery = ({type, setActiveTab}) => {
   const [isLoading, setIsLoading] = useState(true); // New state for loading indicator
   const [priceConfig, setPriceConfig] = useState({});
   const navigate = useNavigate();
+  const axiosPrivate = useAxiosPrivate();
 
   const handledelete = async (id) => {
     try {
       setIsLoading(true);
       setData([]);
-      const res = await pickupinstance.put(`/deletePickup/${id}`);
+      const res = await axiosPrivate.put(`/deletePickup/${id}`);
       console.log("console", res);
       if (res.status === 200) {
         getPickups();
@@ -46,7 +46,7 @@ const SheduledDelivery = ({type, setActiveTab}) => {
 
   const getPickups = () => {
     const url= type === 'cancel' ? '/getCancelPickups': '/getSchedulePickups';
-    pickupinstance
+    axiosPrivate
       .get(`${url}?limit=${pageSize}&page=${pageNumber}`)
       .then((response) => {
         setData([...response?.data?.Pickups]);
