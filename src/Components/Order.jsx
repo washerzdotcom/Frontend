@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { instance, pickupinstance } from "../config";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Table, Container, Row, Col } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
-import axios from "axios";
 import moment from "moment";
-import ClipLoader from "react-spinners/ClipLoader";
 import Loader from "./Loader";
 import "../style/responsive.css"
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 // import "./CustomerDetails.css"; // Import your custom CSS file
 
 const CustomerDetails = () => {
@@ -16,10 +14,11 @@ const CustomerDetails = () => {
   const [pageCount, setPageCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true); // New state for the loading indicator
   const pageSize = 8; // Adjust to your preferred page size
+  const axiosPrivate = useAxiosPrivate();
 
   const getCustomer = async (key) => {
     try {
-      const customer = await pickupinstance.get(
+      const customer = await axiosPrivate.get(
         `/getOrders?limit=${pageSize}&page=${pageNumber}`
       );
       console.log("-----------------data", customer.data);

@@ -27,7 +27,7 @@ root.render(
         pauseOnHover
         theme="light"
       />
-      </AuthProvider>
+    </AuthProvider>
   // </React.StrictMode>
 );
 

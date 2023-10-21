@@ -4,7 +4,7 @@ import ItemSlider from "./itemSlider";
 import BillCustomerInfo from "./BillCustomerInfo";
 import BillPriceInfo from "./BillPriceInfo";
 import { Button, Spinner } from "react-bootstrap";
-import { instance, pickupinstance } from "../config";
+import axios, { instance } from "../config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import SearchBar from './SearchBar'
@@ -555,7 +555,7 @@ function BillCart() {
 
   const handledelete = async (id) => {
     try {
-      const res = await pickupinstance.put(`/deletePickup/${id}`);
+      const res = await axios.put(`/deletePickup/${id}`);
     } catch (error) {
       console.log("Error:", error);
     }
@@ -584,7 +584,7 @@ function BillCart() {
     }   
 
     try {
-      const res = await pickupinstance.post(`/addOrder`, {...currObj, price: (total - total * (dis / 100)).toFixed(2)});
+      const res = await axios.post(`/addOrder`, {...currObj, price: (total - total * (dis / 100)).toFixed(2)});
       const sendTemRes = await instance.post(
         `/sendTemplateMessage?whatsappNumber=${currObj.contactNo}`,
         {

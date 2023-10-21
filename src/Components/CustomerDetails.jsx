@@ -9,6 +9,7 @@ import moment from "moment";
 import ClipLoader from "react-spinners/ClipLoader";
 import Loader from "./Loader";
 import "../style/responsive.css"
+import useRefreshToken from "../hooks/useRefreshToken";
 
 const CustomerDetails = () => {
   const [customer, setCustomer] = useState([]);
@@ -16,9 +17,12 @@ const CustomerDetails = () => {
   const [pageCount, setPageCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const pageSize = 8;
+  const refresh = useRefreshToken();
 
   const getCustomer = async () => {
     setIsLoading(true);
+    const newAccessToken = await refresh();
+    console.log("=============================>>> at", newAccessToken)
     try {
       const customerData = await instance.get(
         `/getContacts?pageSize=${pageSize}&pageNumber=${pageNumber}`

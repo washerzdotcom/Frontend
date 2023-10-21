@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { pickupinstance } from "../config";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
 import Example from "./SucessModal";
@@ -11,7 +10,7 @@ import socket from "../utills/socket";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useAuth from "../hooks/useAuth";
-
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const LiveDelivery = ({setActiveTab}) => {
   const navigate = useNavigate();
@@ -25,13 +24,15 @@ const LiveDelivery = ({setActiveTab}) => {
   const [total, setTotal] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [priceConfig, setPriceConfig] = useState({});
+  const axiosPrivate = useAxiosPrivate();
+
 
 
   const handledelete = async (id) => {
     try {
       setIsLoading(true);
       setData([]);
-      const res = await pickupinstance.put(`/deletePickup/${id}`);
+      const res = await axiosPrivate.put(`/deletePickup/${id}`);
       if (res.status === 200) {
         getPickups();
         setActiveTab('Cancelled')
@@ -43,7 +44,7 @@ const LiveDelivery = ({setActiveTab}) => {
   };
 
   const getPickups = () => {
-    pickupinstance
+    axiosPrivate
       .get(`/getPickups?limit=${pageSize}&page=${pageNumber}`)
       .then((response) => {
         setData([...response?.data?.Pickups]);
@@ -54,6 +55,7 @@ const LiveDelivery = ({setActiveTab}) => {
         console.error("Error fetching data:", error);
         setIsLoading(false);
       });
+
   };
 
   useEffect(() => {

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button, Card, Modal } from "react-bootstrap";
-import { instance, pickupinstance } from "../config";
+import { instance } from "../config";
 import ItemTable from "./ItemTable";
+import axios from "../config";
 
 function BillModal({
   billShow,
@@ -16,7 +17,10 @@ function BillModal({
   const { contactNo, customerName, address } = currObj;
   const addOrder = async () => {
     try {
-      const res = await pickupinstance.post(`/addOrder`, currObj);
+      const res = await axios.post(`/addOrder`, currObj,   {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true
+    });
       const sendTemRes = await instance.post(
         `/sendTemplateMessage?whatsappNumber=${currObj.contactNo}`,
         {
