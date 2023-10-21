@@ -14,6 +14,7 @@ import UserListing from './Components/UserListing';
 import AboutUser from './Components/AboutUser';
 import Login from './Components/Login';
 import useAuth from './hooks/useAuth';
+import ForgetPassword from './Components/ForgetPassword';
 
 const App =() =>
 {
@@ -32,6 +33,7 @@ const App =() =>
           <Route path ='/userlisting' element={<UserListing/>}/>
           <Route path ='/aboutuser' element={<AboutUser/>}/>
           <Route path='/login' element={<Login/>}/>
+          <Route path = '/forgetpassword' element={<ForgetPassword/>}/>
           <Route path='/Product-Bill' element={
           <Protected currObj={currObj}>
           <BillCart/>
