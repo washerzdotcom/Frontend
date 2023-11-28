@@ -12,9 +12,10 @@ export const AuthProvider = ({ children }) =>
     price: 0,
     id: "",
   }); 
+  const [isLoader, setisLoader] = useState(true)
 
    return (
-    <AuthContext.Provider value={{auth, setAuth, currObj, setCurrObj}}>
+    <AuthContext.Provider value={{auth, setAuth, currObj, setCurrObj,isLoader, setisLoader}}>
         {children}
     </AuthContext.Provider>
    )

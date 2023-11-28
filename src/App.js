@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router , Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router , Routes, Route, useNavigate } from 'react-router-dom';
 import Header from './Components/Header';
 import Pickups from './Components/Pickups';
 import Order from './Components/Order';
@@ -19,33 +19,32 @@ import RequireAuth from './Components/RequireAuth';
 import Unauthorized from './Components/Unauthorized';
 import { useEffect } from 'react';
 import useRefreshToken from './hooks/useRefreshToken';
+import Cookies from 'js-cookie';
+import { getProfile } from './utills/Api';
+import CustomLoader from './Components/CustomLoader'
 
 const App =() =>
 {
-  const refresh =  useRefreshToken();
-  const { setAuth } = useAuth();
-     useEffect(()=>
-     {
-        (async ()=>
-        {
-          const response = await refresh();
-           const role = response?.user?.role;
-           const profile = response?.user;
-           console.log("response-->> ", response)
-          setAuth({ user: profile.email, pwd: profile.password, role,profile, accessToken: response.accessToken });
-          }
-        )()
-     }, [])
+  const { setAuth, auth, isLoader, setisLoader} = useAuth();
+  const navigate = useNavigate();
+  useEffect(()=>
+  {
+    getProfile(setAuth, setisLoader, navigate);
+  }, [])
+
+    const refresh =  useRefreshToken();
     const { currObj } = useAuth();
+    if(isLoader)
+    {
+      return <CustomLoader/>
+    }
     return <>
-      <Router>
         <Header/>
         <Routes>
-        <Route path="/" element={<Layout />}>
+          <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/unauthorized' element={<Unauthorized/>}/>
           <Route element={<RequireAuth allowedRoles={['admin']} />}>
-          <Route path='/home' element={<Home/>}/>
           <Route path='/pickups' element={<Pickups/>}/>
           <Route path='/order' element={<Order/>}/>
           <Route path='/customerdetails' element={<CustomerDetails/>}/>
@@ -59,9 +58,7 @@ const App =() =>
         </Protected>
           }/>
           </Route>
-          </Route>
         </Routes>
-      </Router>
     </>
 }
 export default App;

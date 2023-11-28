@@ -27,3 +27,15 @@
     color: red;
   }
   
+  .edit-icon
+  {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    /* background-color: red; */
+  }
+
+  .edit-icon-label
+  {
+    width: 100%;
+  }

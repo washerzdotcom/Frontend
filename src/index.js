@@ -4,7 +4,7 @@ import App from './App';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from './context/AuthContext';
-
+import { BrowserRouter as Router} from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const styleLink = document.createElement("link"); 
 styleLink.rel = "stylesheet"; 
@@ -14,7 +14,9 @@ document.head.appendChild(styleLink);
 root.render(
   // <React.StrictMode>
     <AuthProvider>
+    <Router>
     <App />
+    </Router>
     <ToastContainer
         position="top-center"
         autoClose={5000}

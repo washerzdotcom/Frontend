@@ -4,11 +4,12 @@ import img1 from "../assets/washrzlogonew.png"
 import Home from './Home';
 import Profile from './Profile';
 import useAuth from '../hooks/useAuth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Header() {
   const { auth } = useAuth();
-  console.log("hiii---> ", auth.profile)
+  const token = localStorage.getItem('token');
+  const navigate = useNavigate();
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -16,10 +17,11 @@ function Header() {
           src={img1}// Replace with the path to your logo image
           alt="Logo"
           className="navbar-logo" HashLink to={<Home/>}
+          onClick={()=> navigate('/')}
         />
-        <span className="navbar-title">Washrz.com</span>
+        <span className="navbar-title"  onClick={()=> navigate('/')}>Washrz.com</span>
       </div>
-      <div className="navbar-right">
+      <div style={{display: 'flex'}}className="navbar-right">
         <ul className="navbar-links">
           <li className="navbar-link">
            {/* <HashLink to ="/pickups">PickUps</HashLink> */}
@@ -38,7 +40,7 @@ function Header() {
             <Link to='/plant'>Plant</Link>
           </li>
           <li className="navbar-link">
-          {auth.profile?  <Profile/> : <Link to='/login'>Login</Link>}
+          {auth.name?  <Profile/> : <Link to='/login'>Login</Link>}
           </li>
         </ul>
       </div>

@@ -21,7 +21,7 @@ const initialUser = {
 };
 
 const AboutUser = () => {
-  const { auth: {profile: {name, email, role}}} = useAuth();
+  const { auth: {name, email, role}} = useAuth();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState({ ...initialUser });

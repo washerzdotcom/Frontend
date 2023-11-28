@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import '../style/formstyle.css';
-
+import '../style/AboutUser.css';
+import profile from '../assets/washrzimages/dummy_profile_image.jpg';
+import useAuth from '../hooks/useAuth';
 const roles = ['Admin', 'Plant Manager', 'Rider'];
 
 function App() {
@@ -11,12 +13,14 @@ function App() {
   const [photoPreview, setPhotoPreview] = useState(null);
   const [drivingLicencePreview, setDrivingLicencePreview] = useState(null);
   const [aadhaarCardPreview, setAadhaarCardPreview] = useState(null);
+  // const {setisLoader} = useAuth();
 
   const onSubmit = (data) => {
     if (data.password !== data.confirmPassword) {
       alert("Password and Confirm Password must match.");
       return;
     }
+    // Signup(data, setisLoader)
     console.log(data);
     // Handle form submission logic here
 
@@ -56,6 +60,20 @@ function App() {
         fontSize: "24px",
         textAlign: "center",
       }}>Add User</h1>
+      <div className="profile-photo">
+        <img src={photoPreview || profile} alt="User Photo" />
+        <label className="edit-icon-label">
+          <input
+            type="file"
+            {...register('photo', { required: true })}
+            onChange={(event) => handleImageFileChange('photo', event, setPhotoPreview)}
+            style={{ display: 'none' }}
+          />
+          <span className="edit-icon" role="img" aria-label="Edit" title="Edit Image">
+            change✏️
+          </span>
+        </label>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
         <div className="form-group">
           <label>Full Name</label>
@@ -71,7 +89,7 @@ function App() {
 
         <div className="form-group">
           <label>Email Address</label>
-          <input {...register('email', { required: true })} type="email" className="form-control" />
+          <input id='1212'{...register('email', { required: true })} type="email" className="form-control" />
           {errors.email && <span className="input-error">This field is required</span>}
         </div>
 
@@ -85,7 +103,7 @@ function App() {
           {errors.role && <span className="input-error">This field is required</span>}
         </div>
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <label>Photo</label>
           <input
             type="file"
@@ -95,15 +113,15 @@ function App() {
           />
           {errors.photo && <span className="input-error">This field is required</span>}
           {photoPreview && <img src={photoPreview} alt="Photo Preview" style={{ maxWidth: '100px', marginTop: '10px' }} />}
-        </div>
+        </div> */}
 
         <div className="form-group">
           <label>Aadhaar Card</label>
           <input
-            type="file"
+            type="number"
             {...register('aadhaarCard', { required: true })}
-            className="form-control-file"
-            onChange={(event) => handleImageFileChange('aadhaarCard', event, setAadhaarCardPreview)}
+            className="form-control"
+            // onChange={(event) => handleImageFileChange('aadhaarCard', event, setAadhaarCardPreview)}
           />
           {errors.aadhaarCard && <span className="input-error">This field is required</span>}
           {aadhaarCardPreview && <img src={aadhaarCardPreview} alt="Aadhaar Card Preview" style={{ maxWidth: '100px', marginTop: '10px' }} />}
@@ -112,10 +130,10 @@ function App() {
         <div className="form-group">
           <label>Driving Licence</label>
           <input
-            type="file"
+            type="text"
             {...register('drivingLicence', { required: true })}
-            className="form-control-file"
-            onChange={(event) => handleImageFileChange('drivingLicence', event, setDrivingLicencePreview)}
+            className="form-control"
+            // onChange={(event) => handleImageFileChange('drivingLicence', event, setDrivingLicencePreview)}
           />
           {errors.drivingLicence && <span className="input-error">This field is required</span>}
           {drivingLicencePreview && <img src={drivingLicencePreview} alt="Driving Licence Preview" style={{ maxWidth: '100px', marginTop: '10px' }} />}
@@ -126,6 +144,7 @@ function App() {
           <div className="input-group">
             <input
               type={passwordVisible ? 'text' : 'password'}
+              id='1213'
               {...register('password', { required: true })}
               className="form-control"
             />

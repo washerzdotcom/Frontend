@@ -6,17 +6,18 @@ import { HashLink } from "react-router-hash-link";
 import useAuth from '../hooks/useAuth';
 
 const Profile = () => {
-  const { auth: {profile: {name, email, role}}} = useAuth();
+  const { auth: {name, email, role}} = useAuth();
+  console.log("here is the ==========?>?>?>?>?>?>?-->> ", {name, email, role})
   return (
     <>
      <div id="app">
         <PopupMenu>
-          <div style={{fontWeight:"bold"}}>
-            Menu
+          <div style={{fontFamily:"cursive", cursor: 'pointer'}}>
+            Hello, {name}
           </div>
             <div  className="card-body px-4 py-4 my-4 mx-0 bodytag">
               <div id="circle-avatar" className="text-center mx-auto mb-4">
-                <span>K</span>
+                <span>{name[0]}</span>
               </div>
 
               <h5 className="text-center mb-0" style={{color:"white"}}>{name}</h5>

@@ -25,11 +25,10 @@ function Login() {
   const { setAuth, auth} = useAuth();
   const navigate = useNavigate();
   useEffect(()=> {
-     if(auth.user)
+     if(auth.accessToken)
      {
-      navigate('/home')
+      navigate('/')
      }
-      console.log("hello user--> ", auth)
   })
   // const location = useLocation();
   // const from = location.state?.from?.pathname || "/";
@@ -39,6 +38,26 @@ function Login() {
           return { ...prev, [e.target.type]: e.target.value };
         });
   };
+
+  const getProfile = async (accessToken) =>
+  {
+    if(accessToken)
+    {
+     const response = await axios.get(
+       "/auth/profile",
+         {
+           headers: { 'Content-Type': 'application/json' },
+           withCredentials: true
+       }
+     );
+     
+     const profile = response.data.profile;
+     const {name, email, role, avatar} = profile;
+     console.log("thid is theprofle-->> ", profile)
+     setAuth({name, email, role, avatar, accessToken});
+       navigate('/');
+    }
+  }
 
   const handleSubmit = async () => {
     const { email, password } = value;
@@ -51,13 +70,10 @@ function Login() {
             withCredentials: true
         }
       );
+      getProfile(response?.data?.tokens.accessToken);
       toast.success('Sucessfully Logedin :)')
       const accessToken = response?.data?.tokens.accessToken;
       localStorage.setItem('token', response?.data?.tokens.refreshToken)
-      const role = response?.data?.data.user?.role;
-      const profile = response?.data?.data.user
-      setAuth({ user: email, pwd: password, role,profile, accessToken });
-      navigate('/home')
 
     } catch (err) {
       if (!err?.response) {
