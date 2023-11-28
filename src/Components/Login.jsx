@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "../config.js";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
+import { HashLink } from "react-router-hash-link";
 
 function Login() {
   const [value, setValue] = useState({
@@ -194,9 +195,9 @@ function Login() {
               >
                 Login
               </MDBBtn>
-              <a className="small text-muted" href="#!">
+              <HashLink to ="/forgetpassword" className="small text-muted" href="#!">
                 Forgot password?
-              </a>
+              </HashLink>
 
               <div className="d-flex flex-row justify-content-start">
                 <a href="#!" className="small text-muted me-1">
