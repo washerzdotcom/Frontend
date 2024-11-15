@@ -3,12 +3,9 @@ import { Container, Tab, Tabs } from "react-bootstrap";
 import { useForm, Controller } from "react-hook-form";
 import { Form, Button } from "react-bootstrap";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { toast } from "react-toastify";
 
-
-
-
-function MannualPickup() {
-  
+function MannualPickup({}) {
   const [activeTab, setActiveTab] = useState("Live");
 
   const handleTabSelect = (selectedTab) => {
@@ -36,7 +33,7 @@ function LivePickupForm() {
     control,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
   const [isLoading, setIsLoading] = useState(false); // Initialize loading state as false
   const axiosPrivate = useAxiosPrivate();
@@ -46,17 +43,18 @@ function LivePickupForm() {
     try {
       const res = await axiosPrivate.post(`/addPickup`, data);
       reset({
-        name: '',
-        contact: '',
-        address: '',
-      })
-      setIsLoading(false); 
+        name: "",
+        contact: "",
+        address: "",
+      });
+      toast.success("Your Live pickup is successfully Add");
+      setIsLoading(false);
       console.log(res);
       // Handle success if needed
     } catch (error) {
-      setIsLoading(false); 
+      setIsLoading(false);
       // Handle error if needed
-    } 
+    }
   };
 
   const formStyle = {
@@ -70,7 +68,7 @@ function LivePickupForm() {
   return (
     <Container style={formStyle}>
       <Form onSubmit={handleSubmit(onSubmit)}>
-      <Controller
+        <Controller
           name="name"
           control={control}
           rules={{ required: "Name is required" }}
@@ -142,7 +140,7 @@ function LivePickupForm() {
             </Form.Group>
           )}
         />
-        
+
         <Button
           variant="primary"
           type="submit"
@@ -173,20 +171,20 @@ function SchedulePickupForm() {
     try {
       const res = await axiosPrivate.post(`/addSchedulePickup`, data);
       reset({
-        name: '',
-        contact: '',
-        address: '',
-        slot : 'Select a time slot'
-      })
-      setIsLoading(false); 
+        name: "",
+        contact: "",
+        address: "",
+        slot: "Select a time slot",
+      });
+      setIsLoading(false);
+      toast.success("Your Schedule pickup successfully Add.");
       console.log(res);
       // Handle success if needed
     } catch (error) {
-      setIsLoading(false); 
+      setIsLoading(false);
       // Handle error if needed
-    } 
+    }
   };
-
 
   const formStyle = {
     maxWidth: "500px",
@@ -197,7 +195,7 @@ function SchedulePickupForm() {
   };
 
   return (
-<Container style={formStyle}>
+    <Container style={formStyle}>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="name"
@@ -302,6 +300,5 @@ function SchedulePickupForm() {
     </Container>
   );
 }
-
 
 export default MannualPickup;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "react-bootstrap";
+import { Button, Table, Modal } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
 import Example from "./SucessModal";
@@ -11,11 +11,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import axios from "../config";
 
-
-
-const SheduledDelivery = ({type, setActiveTab}) => {
-  const {currObj, setCurrObj } = useAuth();
+const SheduledDelivery = ({ type, setActiveTab }) => {
+  const { currObj, setCurrObj } = useAuth();
   const [data, setData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const pageSize = 8;
@@ -25,6 +24,12 @@ const SheduledDelivery = ({type, setActiveTab}) => {
   const [total, setTotal] = useState(null);
   const [isLoading, setIsLoading] = useState(true); // New state for loading indicator
   const [priceConfig, setPriceConfig] = useState({});
+  const [voiceUrl, setVoiceUrl] = useState(null);
+  const [note, setNote] = useState(null);
+  const [showMedia, setShowMedia] = useState(false);
+  const [selectedPickup, setSelectedPickup] = useState(null);
+  const { auth } = useAuth();
+
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
 
@@ -36,8 +41,8 @@ const SheduledDelivery = ({type, setActiveTab}) => {
       console.log("console", res);
       if (res.status === 200) {
         getPickups();
-        setActiveTab('Cancelled')
-        toast.success("Pickup is successfully cancelled")
+        setActiveTab("Cancelled");
+        toast.success("Pickup is successfully cancelled");
       }
     } catch (error) {
       console.log("this is error", error);
@@ -45,9 +50,11 @@ const SheduledDelivery = ({type, setActiveTab}) => {
   };
 
   const getPickups = () => {
-    const url= type === 'cancel' ? '/getCancelPickups': '/getSchedulePickups';
+    const userEmail = auth?.email; // Assuming auth.email contains the logged-in user's email
+    const url = type === "cancel" ? "/getCancelPickups" : "/getSchedulePickups";
+
     axiosPrivate
-      .get(`${url}?limit=${pageSize}&page=${pageNumber}`)
+      .get(`${url}?limit=${pageSize}&page=${pageNumber}&email=${userEmail}`)
       .then((response) => {
         setData([...response?.data?.Pickups]);
         setPageCount(Math.ceil(response?.data?.total / pageSize));
@@ -70,6 +77,18 @@ const SheduledDelivery = ({type, setActiveTab}) => {
     setPageNumber(selectedPage.selected + 1);
   };
 
+  const handleView = async (pickupId) => {
+    setSelectedPickup(pickupId);
+    setShowMedia(true);
+    try {
+      const { data } = await axios.get(`/rider/getCancelMedia/${pickupId}`);
+      setVoiceUrl(data.voiceUrl);
+      setNote(data.cancelNote);
+    } catch (error) {
+      console.error("Error fetching media:", error);
+    }
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -86,7 +105,12 @@ const SheduledDelivery = ({type, setActiveTab}) => {
                     <th>Booking Time</th>
                     <th>Address</th>
                     <th>Slot Timings</th>
-                    {type !== 'cancel' ? <th>Action</th> : null}
+                    {type === "cancel" ? (
+                      <>
+                        <th>Action</th>
+                        {/* <th>Note/Voice</th> */}
+                      </>
+                    ) : null}
                   </tr>
                 </thead>
                 <tbody>
@@ -104,33 +128,47 @@ const SheduledDelivery = ({type, setActiveTab}) => {
                           </td>
                           <td>{user.Address}</td>
                           <td>{user.slot}</td>
-                          {type !== 'cancel' ? <td>
-                            <button
-                              className="btn btn-outline-success d-block mx-auto m-1"
-                              style={{ width: "100%" }} // Add this inline style
-                              onClick={() => {
-                                setCurrObj({
-                                  contactNo: user.Contact,
-                                  customerName: user.Name,
-                                  address: user.Address,
-                                  items: [],
-                                  price: 0,
-                                  id: user._id,
-                                });
-                                navigate('/Product-Bill')
-                              }}
-                            >
-                              Complete
-                            </button>
-                            <button
-                              onClick={() => handledelete(user._id)}
-                              className="btn btn-outline-danger d-block mx-auto" // Add these classes
-                              disabled={isLoading ? true : false}
-                              style={{ width: "100%" }} // Add this inline style
-                            >
-                              Cancel
-                            </button>
-                          </td> : null}
+                          {type === "cancel" ? (
+                            <>
+                              {/* <td>
+                                <button
+                                  className="btn btn-outline-success d-block mx-auto m-1"
+                                  style={{ width: "100%" }} // Add this inline style
+                                  onClick={() => {
+                                    setCurrObj({
+                                      contactNo: user.Contact,
+                                      customerName: user.Name,
+                                      address: user.Address,
+                                      items: [],
+                                      price: 0,
+                                      id: user._id,
+                                    });
+                                    navigate("/Product-Bill");
+                                  }}
+                                >
+                                  Complete
+                                </button>
+                                <button
+                                  onClick={() => handledelete(user._id)}
+                                  className="btn btn-outline-danger d-block mx-auto" // Add these classes
+                                  disabled={isLoading ? true : false}
+                                  style={{ width: "100%" }} // Add this inline style
+                                >
+                                  Cancel
+                                </button>
+                              </td> */}
+                              <td className="d-grid gap-2">
+                                <button
+                                  onClick={() => handleView(user._id)}
+                                  type="button"
+                                  class="btn btn-outline-success"
+                                >
+                                  {/* <Eye size={24} /> Eye icon to open the modal */}
+                                  Pickup Veiw
+                                </button>
+                              </td>
+                            </>
+                          ) : null}
                         </tr>
                       );
                     })}
@@ -145,7 +183,6 @@ const SheduledDelivery = ({type, setActiveTab}) => {
                 setTotal={setTotal}
                 setCurrObj={setCurrObj}
                 setPriceConfig={setPriceConfig}
-              
               />
             )}
             {billShow && (
@@ -183,6 +220,39 @@ const SheduledDelivery = ({type, setActiveTab}) => {
               />
             </div>
           )}
+
+          {/* Modal to show note and voice */}
+          <Modal show={showMedia} onHide={() => setShowMedia(false)}>
+            <Modal.Header closeButton>
+              <Modal.Title>Voice and Note</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {note ? (
+                <div>
+                  <h3>Note</h3>
+                  <p>{note}</p>
+                </div>
+              ) : (
+                <p>No Note available.</p>
+              )}
+              {voiceUrl ? (
+                <div>
+                  <h3>Voice Note</h3>
+                  <audio controls>
+                    <source src={voiceUrl} type="audio/wav" />
+                    Your browser does not support the audio element.
+                  </audio>
+                </div>
+              ) : (
+                <p>No voice note available.</p>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={() => setShowMedia(false)}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       </div>
     </div>

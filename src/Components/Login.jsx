@@ -23,42 +23,36 @@ function Login() {
     email: "",
     password: "",
   });
-  const { setAuth, auth} = useAuth();
+  const { setAuth, auth } = useAuth();
   const navigate = useNavigate();
-  useEffect(()=> {
-     if(auth.accessToken)
-     {
-      navigate('/')
-     }
-  })
+  useEffect(() => {
+    if (auth.accessToken) {
+      navigate("/");
+    }
+  });
   // const location = useLocation();
   // const from = location.state?.from?.pathname || "/";
 
   const handleUserTypeChange = (e) => {
-      setValue((prev) => {
-          return { ...prev, [e.target.type]: e.target.value };
-        });
+    setValue((prev) => {
+      return { ...prev, [e.target.type]: e.target.value };
+    });
   };
 
-  const getProfile = async (accessToken) =>
-  {
-    if(accessToken)
-    {
-     const response = await axios.get(
-       "/auth/profile",
-         {
-           headers: { 'Content-Type': 'application/json' },
-           withCredentials: true
-       }
-     );
-     
-     const profile = response.data.profile;
-     const {name, email, role, avatar} = profile;
-     console.log("thid is theprofle-->> ", profile)
-     setAuth({name, email, role, avatar, accessToken});
-       navigate('/');
+  const getProfile = async (accessToken) => {
+    if (accessToken) {
+      const response = await axios.get("/auth/profile", {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
+
+      const profile = response.data.profile;
+      const { name, email, role, avatar } = profile;
+      console.log("thid is theprofle-->> ", profile);
+      setAuth({ name, email, role, avatar, accessToken });
+      navigate("/");
     }
-  }
+  };
 
   const handleSubmit = async () => {
     const { email, password } = value;
@@ -66,25 +60,24 @@ function Login() {
       const response = await axios.post(
         "/auth/login",
         JSON.stringify({ email, password }),
-          {
-            headers: { 'Content-Type': 'application/json' },
-            withCredentials: true
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
         }
       );
       getProfile(response?.data?.tokens.accessToken);
-      toast.success('Sucessfully Logedin :)')
+      toast.success("Sucessfully Logedin :)");
       const accessToken = response?.data?.tokens.accessToken;
-      localStorage.setItem('token', response?.data?.tokens.refreshToken)
-
+      localStorage.setItem("token", response?.data?.tokens.refreshToken);
     } catch (err) {
       if (!err?.response) {
-        toast.error(err?.response?.data?.message)
+        toast.error(err?.response?.data?.message);
       } else if (err.response?.status === 400) {
-        toast.error(err?.response?.data?.message)
+        toast.error(err?.response?.data?.message);
       } else if (err.response?.status === 401) {
-        toast.error(err?.response?.data?.message)
+        toast.error(err?.response?.data?.message);
       } else {
-        toast.error('Login Failed')
+        toast.error("Login Failed");
       }
     }
   };
@@ -195,7 +188,11 @@ function Login() {
               >
                 Login
               </MDBBtn>
-              <HashLink to ="/forgetpassword" className="small text-muted" href="#!">
+              <HashLink
+                to="/forgetpassword"
+                className="small text-muted"
+                href="#!"
+              >
                 Forgot password?
               </HashLink>
 

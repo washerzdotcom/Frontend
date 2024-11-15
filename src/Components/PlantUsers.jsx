@@ -3,18 +3,23 @@ import { Button, Table, Modal } from "react-bootstrap";
 import { HashLink } from "react-router-hash-link";
 import { axiosPrivate } from "../config";
 import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
 
-const UserListing = () => {
+const PlantUsers = () => {
   const [showAddUser, SetShowAddUser] = useState(false);
   const [users, setUsers] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false); // State for controlling the modal
   const [selectedUserId, setSelectedUserId] = useState(null); // ID of the user to be deleted
+  const location = useLocation();
+  const { plantName } = location.state || {};
 
   // Fetch all users when the component loads
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axiosPrivate.get("/auth/getallusers"); // API call to get all users
+        const response = await axiosPrivate.get(
+          `/auth/getplantusers?plant=${plantName}`
+        );
         setUsers(response.data.data.users);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -51,6 +56,7 @@ const UserListing = () => {
   const ToggleAddUser = () => {
     SetShowAddUser(showAddUser);
   };
+  console.log("Location State:", location.state);
 
   return (
     <>
@@ -69,7 +75,7 @@ const UserListing = () => {
                     textAlign: "center",
                   }}
                 >
-                  User Listing
+                  {plantName} Plant User Listing
                 </h1>
                 <Table striped bordered hover>
                   <thead>
@@ -137,4 +143,4 @@ const UserListing = () => {
   );
 };
 
-export default UserListing;
+export default PlantUsers;
