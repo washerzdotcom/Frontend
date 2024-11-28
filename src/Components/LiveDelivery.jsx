@@ -300,9 +300,9 @@ const LiveDelivery = ({ setActiveTab }) => {
   };
 
   useEffect(() => {
-    socket.on("addPickup", (data) => {
-      setData((prev) => [data, ...prev]);
-    });
+    // socket.on("addPickup", (data) => {
+    //   setData((prev) => [data, ...prev]);
+    // });
 
     getPickups();
   }, [pageNumber]);

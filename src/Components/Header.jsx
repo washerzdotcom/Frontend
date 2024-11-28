@@ -36,6 +36,9 @@ function Header() {
         <ul className="navbar-links">
           {userRole === ALLOWED_ROLES.ADMIN && (
             <>
+              {/* <li className="navbar-link">
+                <Link to="/currentloc">Location</Link>
+              </li> */}
               <li className="navbar-link">
                 <Link to="/pickups">PickUps</Link>
               </li>

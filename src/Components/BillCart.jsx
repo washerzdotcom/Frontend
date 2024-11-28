@@ -22,6 +22,7 @@ function BillCart() {
   const [CapturedImage, setCapturedImage] = useState(null);
   const [voiceFile, setVoiceFile] = useState(null);
   const [spinner, setSpinner] = useState(false);
+  const [riderLocation, setRiderLocation] = useState(null);
   const [laundry, setLaundry] = useState({
     label: "Laundry",
     children: [
@@ -575,6 +576,25 @@ function BillCart() {
   };
   const [dis, setDis] = useState(0);
 
+  // Function to capture current location
+  const captureLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setRiderLocation({ latitude, longitude });
+          toast.success("Location captured successfully!");
+        },
+        (error) => {
+          toast.error("Error capturing location.");
+          console.error(error);
+        }
+      );
+    } else {
+      toast.error("Geolocation not supported by this browser.");
+    }
+  };
+
   const handleSubmit = async () => {
     const fTotal = (total - total * (dis / 100)).toFixed(2);
     setLoader(true);
@@ -637,8 +657,8 @@ function BillCart() {
       return;
     }
 
-    if (!voiceFile) {
-      toast.error("Please record an audio file to upload.");
+    if (!riderLocation) {
+      toast.error("Please capture the location.");
       if (auth?.role === "admin") {
         navigate("/order");
       }
@@ -679,6 +699,7 @@ function BillCart() {
     const formData = new FormData();
     formData.append("image", CapturedImage);
     formData.append("voice", voiceFile);
+    formData.append("location", JSON.stringify(riderLocation));
 
     // Stringify currObj before appending
     formData.append("currObj", JSON.stringify(currObj));
@@ -718,8 +739,10 @@ function BillCart() {
       const sendTemRes = await instance.post(
         `/sendTemplateMessage?whatsappNumber=${currObj.contactNo}`,
         {
-          template_name: "automated_collection_successfull",
-          broadcast_name: "automated_collection_successfull",
+          // template_name: "automated_collection_successfull",
+          // broadcast_name: "automated_collection_successfull",
+          template_name: "collection_success_under_2k",
+          broadcast_name: "collection_success_under_2k_1732369918455",
           parameters: [
             {
               name: "name",
@@ -749,105 +772,6 @@ function BillCart() {
       console.error("Error: ", error);
     }
   };
-
-  // const handleUpload = async () => {
-  //   if (!CapturedImage) {
-  //     toast.error("Please capture an image.");
-  //     return;
-  //   }
-
-  //   if (!voiceFile) {
-  //     toast.error("Please record an audio file to upload.");
-  //     return;
-  //   }
-  //   const fTotal = (total - total * (dis / 100)).toFixed(2);
-  //   setLoader(true);
-  //   setCurrObj((prev) => {
-  //     return { ...prev, price: fTotal };
-  //   });
-
-  //   if (!currObj.customerName) {
-  //     setLoader(false);
-  //     return toast.error("Please fill all field :(");
-  //   }
-  //   if (dis > 100) {
-  //     setLoader(false);
-  //     return toast.error("More than 100% discount is not allowed :(");
-  //   }
-
-  //   if (fTotal <= 0) {
-  //     setLoader(false);
-  //     return toast.error("Please add items");
-  //   }
-
-  //   const price = (total - total * (dis / 100)).toFixed(2);
-
-  //   const formData = new FormData();
-  //   formData.append("image", CapturedImage); // Ensure this matches 'image'
-  //   formData.append("voice", voiceFile); // Ensure this matches 'voice'
-  //   formData.append("currObj", ...currObj);
-  //   formData.append("price", price);
-
-  //   try {
-  //     // const res = await axios.post(`/addOrder`, {
-  //     //   ...currObj,
-  //     //   price: (total - total * (dis / 100)).toFixed(2),
-  //     // });
-  //     const uploadResponse = await axiosPrivate.post(
-  //       `/rider/uploadFiles/${currObj.id}`,
-  //       formData,
-  //       {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //       }
-  //     );
-
-  //     if (uploadResponse.status === 200) {
-  //       toast.success("Files uploaded successfully");
-  //       setCapturedImage(null);
-  //       setVoiceFile(null);
-  //       setShowModal(false);
-
-  //       // After successful upload, call the final submission logic
-  //       handleSubmitFinal();
-  //     } else {
-  //       toast.error("Error uploading files");
-  //     }
-  //   } catch (error) {
-  //     toast.error("Error uploading files");
-  //   }
-  // };
-
-  // const handleSubmitFinal = async () => {
-  //   try {
-  //     const sendTemRes = await instance.post(
-  //       `/sendTemplateMessage?whatsappNumber=${currObj.contactNo}`,
-  //       {
-  //         template_name: "automated_collection_successfull",
-  //         broadcast_name: "automated_collection_successfull",
-  //         parameters: [
-  //           {
-  //             name: "name",
-  //             value: currObj.customerName,
-  //           },
-  //           {
-  //             name: "total_Bill",
-  //             value: (total - total * (dis / 100)).toFixed(2),
-  //           },
-  //         ],
-  //       }
-  //     );
-
-  //     await handledelete(currObj.id);
-  //     toast.success("Order Successfully Created");
-  //     navigate("/order");
-  //     setLoader(false);
-  //   } catch (error) {
-  //     setLoader(false);
-  //     console.log("this is error", error);
-  //   }
-  // };
 
   const total = items.reduce((prev, el) => {
     // console.log("this is data--> ", prev, el);
@@ -914,43 +838,7 @@ function BillCart() {
             </h5>
             <BillCustomerInfo currObj={currObj} />
           </div>
-          <div>
-            {" "}
-            <h5
-              style={{
-                paddingLeft: "20px",
-                paddingTop: "10px",
-                paddingBottom: "10px",
-                margin: "10px",
-                border: "2px solid black",
-                backgroundColor: "teal",
-                color: "white",
-              }}
-            >
-              Added Items:
-            </h5>
-            <div
-              style={{
-                margin: "20px",
-                border: "2px black solid",
-                borderRadius: "10px",
-              }}
-            >
-              <SearchBar handleClick={handleClick} />
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-around" }}>
-              {items.length > 0 ? (
-                <Item
-                  items={items}
-                  handleQuantity={handleQuantity}
-                  inputChange={inputChange}
-                  restoreItem={restoreItem}
-                />
-              ) : (
-                <h6>Add Items</h6>
-              )}
-            </div>
-          </div>
+
           <div>
             <h5
               style={{
@@ -1060,7 +948,43 @@ function BillCart() {
               )}
             </div>
           </div>
-
+          <div>
+            {" "}
+            <h5
+              style={{
+                paddingLeft: "20px",
+                paddingTop: "10px",
+                paddingBottom: "10px",
+                margin: "10px",
+                border: "2px solid black",
+                backgroundColor: "teal",
+                color: "white",
+              }}
+            >
+              Added Items:
+            </h5>
+            <div
+              style={{
+                margin: "20px",
+                border: "2px black solid",
+                borderRadius: "10px",
+              }}
+            >
+              <SearchBar handleClick={handleClick} />
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+              {items.length > 0 ? (
+                <Item
+                  items={items}
+                  handleQuantity={handleQuantity}
+                  inputChange={inputChange}
+                  restoreItem={restoreItem}
+                />
+              ) : (
+                <h6>Add Items</h6>
+              )}
+            </div>
+          </div>
           <div>
             {" "}
             <h5
@@ -1126,6 +1050,7 @@ function BillCart() {
           </div>
         </Modal.Body>
         <Modal.Footer>
+          <Button onClick={captureLocation}>Capture Location</Button>
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Close
           </Button>

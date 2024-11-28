@@ -19,8 +19,12 @@ import useAuth from "./../../hooks/useAuth";
 import io from "socket.io-client";
 import Loader from "./../Loader";
 import axios, { instance } from "./../../config";
+import constant from "../../constant";
 
-const socket = io("http://localhost:3000");
+
+const { washrzserver } = constant;
+
+// const socket = io(washrzserver);
 
 const Processing = ({ setActiveTab }) => {
   const [customer, setCustomer] = useState([]);
@@ -44,19 +48,19 @@ const Processing = ({ setActiveTab }) => {
   const { auth } = useAuth();
   const [newStatus, setNewStatus] = useState("");
 
-  useEffect(() => {
-    socket.on("orderStatusUpdated", (updatedOrder) => {
-      setCustomer((prevOrders) =>
-        prevOrders.map((order) =>
-          order._id === updatedOrder._id ? updatedOrder : order
-        )
-      );
-    });
+  // useEffect(() => {
+  //   socket.on("orderStatusUpdated", (updatedOrder) => {
+  //     setCustomer((prevOrders) =>
+  //       prevOrders.map((order) =>
+  //         order._id === updatedOrder._id ? updatedOrder : order
+  //       )
+  //     );
+  //   });
 
-    return () => {
-      socket.off("orderStatusUpdated");
-    };
-  }, []);
+  //   return () => {
+  //     socket.off("orderStatusUpdated");
+  //   };
+  // }, []);
 
   const handleSubmit = async (id, value) => {
     setCurrentOrderId(id);
@@ -94,10 +98,10 @@ const Processing = ({ setActiveTab }) => {
         status: newStatus,
       });
 
-      socket.emit("updateOrderStatus", {
-        id: currentOrderId,
-        status: newStatus,
-      });
+      // socket.emit("updateOrderStatus", {
+      //   id: currentOrderId,
+      //   status: newStatus,
+      // });
 
       // Trigger the WhatsApp template if status is 'ready for delivery'
       if (newStatus === "ready for delivery") {

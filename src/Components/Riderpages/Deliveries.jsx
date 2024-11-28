@@ -1,8 +1,6 @@
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { useState } from "react";
-import Deliverd from "../Deliverd";
-import Processing from "../Processing";
 import Deliver from "./Deliver";
 import Completed from "./Completed";
 import OrderReschedule from "./OrderReschedule";

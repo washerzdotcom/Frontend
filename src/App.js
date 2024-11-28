@@ -29,6 +29,7 @@ import Deliveries from "./Components/Riderpages/Deliveries";
 import ManagerOrders from "./Components/PlantManagerPages/ManagerOrders";
 import PlantUsers from "./Components/PlantUsers";
 import PickupRiderAllocation from "./Components/PlantManagerPages/PickupRiderAllocation";
+import CurrentLocation from "./Components/CurrentLoc";
 
 const App = () => {
   const { setAuth, auth, isLoader, setisLoader } = useAuth();
@@ -58,6 +59,7 @@ const App = () => {
           <Route path="/userlisting" element={<UserListing />} />
           <Route path="/plantuser" element={<PlantUsers />} />
           <Route path="/aboutuser" element={<AboutUser />} />
+          <Route path="/currentloc" element={<CurrentLocation />} />
           <Route
             path="/Product-Bill"
             element={

@@ -22,8 +22,12 @@ import Loader from "./../Loader";
 import axios, { instance } from "./../../config";
 import "../../style/order.css";
 import Webcamera from "../../Componentsnew/webcam/Webcamera";
+import constant from "../../constant";
 
-const socket = io("http://localhost:3000");
+
+const { washrzserver } = constant;
+
+// const socket = io(washrzserver);
 
 const Deliver = ({ setActiveTab }) => {
   const [customer, setCustomer] = useState([]);
@@ -206,19 +210,19 @@ const Deliver = ({ setActiveTab }) => {
       toast.error("Error sending WhatsApp message.");
     }
   };
-  useEffect(() => {
-    socket.on("orderStatusUpdated", (updatedOrder) => {
-      setCustomer((prevOrders) =>
-        prevOrders.map((order) =>
-          order._id === updatedOrder._id ? updatedOrder : order
-        )
-      );
-    });
+  // useEffect(() => {
+  //   socket.on("orderStatusUpdated", (updatedOrder) => {
+  //     setCustomer((prevOrders) =>
+  //       prevOrders.map((order) =>
+  //         order._id === updatedOrder._id ? updatedOrder : order
+  //       )
+  //     );
+  //   });
 
-    return () => {
-      socket.off("orderStatusUpdated");
-    };
-  }, []);
+  //   return () => {
+  //     socket.off("orderStatusUpdated");
+  //   };
+  // }, []);
 
   const handleComplete = async (id, value) => {
     setCurrentOrderId(id);
@@ -254,10 +258,10 @@ const Deliver = ({ setActiveTab }) => {
       });
 
       // Emit the status update event via socket
-      socket.emit("updateOrderStatus", {
-        currentOrderId,
-        status: newStatus,
-      });
+      // socket.emit("updateOrderStatus", {
+      //   currentOrderId,
+      //   status: newStatus,
+      // });
 
       // Send WhatsApp message after order is completed
       await sendWhatsAppTemplateDelivered(currentOrderId); // Pass the `id` directly
@@ -345,6 +349,7 @@ const Deliver = ({ setActiveTab }) => {
                   <th>Contact Number</th>
                   <th>Address</th>
                   <th>Ready For Delivery Time</th>
+                  <th>User Location</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -357,6 +362,20 @@ const Deliver = ({ setActiveTab }) => {
                     <td>
                       {moment(user.statusHistory.ReadyForDelivery).format(
                         "MMMM Do YYYY, h:mm:ss a"
+                      )}
+                    </td>
+                    <td>
+                      {user.orderLocation?.latitude &&
+                      user.orderLocation?.longitude ? (
+                        <a
+                          href={`https://www.google.com/maps?q=${user.orderLocation.latitude},${user.orderLocation.longitude}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          tap here
+                        </a>
+                      ) : (
+                        "Location not available"
                       )}
                     </td>
                     <td>

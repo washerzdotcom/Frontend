@@ -13,8 +13,10 @@ import Loader from "./../Loader";
 import axios from "./../../config";
 import Webcamera from "../../Componentsnew/webcam/Webcamera";
 import Recorder from "../../Componentsnew/Recorder/Recorder";
+import constant from "../../constant";
+const { washrzserver } = constant;
 
-const socket = io("http://localhost:3000");
+// const socket = io(washrzserver);
 
 const Intransit = ({ setActiveTab }) => {
   const [customer, setCustomer] = useState([]);
@@ -38,19 +40,19 @@ const Intransit = ({ setActiveTab }) => {
   const { auth } = useAuth();
   const [newStatus, setNewStatus] = useState("");
 
-  useEffect(() => {
-    socket.on("orderStatusUpdated", (updatedOrder) => {
-      setCustomer((prevOrders) =>
-        prevOrders.map((order) =>
-          order._id === updatedOrder._id ? updatedOrder : order
-        )
-      );
-    });
+  // useEffect(() => {
+  //   socket.on("orderStatusUpdated", (updatedOrder) => {
+  //     setCustomer((prevOrders) =>
+  //       prevOrders.map((order) =>
+  //         order._id === updatedOrder._id ? updatedOrder : order
+  //       )
+  //     );
+  //   });
 
-    return () => {
-      socket.off("orderStatusUpdated");
-    };
-  }, []);
+  //   return () => {
+  //     socket.off("orderStatusUpdated");
+  //   };
+  // }, []);
 
   const handleSubmit = async (id, value) => {
     setCurrentOrderId(id);

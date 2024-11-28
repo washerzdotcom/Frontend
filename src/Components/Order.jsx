@@ -14,9 +14,13 @@ import "../style/order.css";
 import Recorder from "../Componentsnew/Recorder/Recorder";
 import Webcamera from "../Componentsnew/webcam/Webcamera";
 import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
+import constant from "../constant";
+
+const {  washrzserver } = constant;
 
 const { Option } = Select;
-const socket = io("http://localhost:3000"); // Update with your backend URL
+// const socket = io(washrzserver); // Update with your backend URL
 
 const CustomerDetails = () => {
   const [customer, setCustomer] = useState([]);
@@ -56,19 +60,19 @@ const CustomerDetails = () => {
     getCustomer();
   }, [pageNumber]);
 
-  useEffect(() => {
-    socket.on("orderStatusUpdated", (updatedOrder) => {
-      setCustomer((prevOrders) =>
-        prevOrders.map((order) =>
-          order._id === updatedOrder._id ? updatedOrder : order
-        )
-      );
-    });
+  // useEffect(() => {
+  //   socket.on("orderStatusUpdated", (updatedOrder) => {
+  //     setCustomer((prevOrders) =>
+  //       prevOrders.map((order) =>
+  //         order._id === updatedOrder._id ? updatedOrder : order
+  //       )
+  //     );
+  //   });
 
-    return () => {
-      socket.off("orderStatusUpdated");
-    };
-  }, []);
+  //   return () => {
+  //     socket.off("orderStatusUpdated");
+  //   };
+  // }, []);
 
   const handleChange = async (id, value) => {
     setCurrentOrderId(id);
@@ -87,10 +91,10 @@ const CustomerDetails = () => {
         await axios.patch(`/auth/updateOrderStatus/${currentOrderId}`, {
           status: newStatus,
         });
-        socket.emit("updateOrderStatus", {
-          id: currentOrderId,
-          status: newStatus,
-        });
+        // socket.emit("updateOrderStatus", {
+        //   id: currentOrderId,
+        //   status: newStatus,
+        // });
 
         // Trigger the WhatsApp template if status is 'ready for delivery'
         if (newStatus === "ready for delivery") {
@@ -307,6 +311,7 @@ const CustomerDetails = () => {
                   <th>plant</th>
                   <th>Total Bill</th>
                   <th>Update Status</th>
+                  <th>Location</th>
                   <th>Photo/voice</th>
                 </tr>
               </thead>
@@ -340,6 +345,21 @@ const CustomerDetails = () => {
                         ))}
                       </Select>
                     </td>
+                    <td>
+                      {user.orderLocation?.latitude &&
+                      user.orderLocation?.longitude ? (
+                        <a
+                          href={`https://www.google.com/maps?q=${user.orderLocation.latitude},${user.orderLocation.longitude}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          tap here
+                        </a>
+                      ) : (
+                        "Location not available"
+                      )}
+                    </td>
+
                     <td className="d-grid gap-2">
                       <button
                         onClick={() => handleView(user._id)}

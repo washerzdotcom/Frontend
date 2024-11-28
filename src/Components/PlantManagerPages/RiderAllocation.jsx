@@ -16,8 +16,12 @@ import useAuth from "./../../hooks/useAuth";
 import io from "socket.io-client";
 import Loader from "./../Loader";
 import { toast } from "react-toastify";
+import constant from "../../constant";
 
-const socket = io("http://localhost:3000");
+
+const { washrzserver } = constant;
+
+// const socket = io(washrzserver);
 
 const RiderAllocation = ({ setActiveTab }) => {
   const [customer, setCustomer] = useState([]);
@@ -33,19 +37,19 @@ const RiderAllocation = ({ setActiveTab }) => {
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
 
-  useEffect(() => {
-    socket.on("orderStatusUpdated", (updatedOrder) => {
-      setCustomer((prevOrders) =>
-        prevOrders.map((order) =>
-          order._id === updatedOrder._id ? updatedOrder : order
-        )
-      );
-    });
+  // useEffect(() => {
+  //   socket.on("orderStatusUpdated", (updatedOrder) => {
+  //     setCustomer((prevOrders) =>
+  //       prevOrders.map((order) =>
+  //         order._id === updatedOrder._id ? updatedOrder : order
+  //       )
+  //     );
+  //   });
 
-    return () => {
-      socket.off("orderStatusUpdated");
-    };
-  }, []);
+  //   return () => {
+  //     socket.off("orderStatusUpdated");
+  //   };
+  // }, []);
 
   useEffect(() => {
     const getCustomer = async () => {

@@ -47,7 +47,7 @@ function LivePickupForm() {
         contact: "",
         address: "",
       });
-      toast.success("Your Live pickup is successfully Add");
+      toast.success("Your Live Pickup is successfully added.");
       setIsLoading(false);
       console.log(res);
       // Handle success if needed
@@ -177,7 +177,7 @@ function SchedulePickupForm() {
         slot: "Select a time slot",
       });
       setIsLoading(false);
-      toast.success("Your Schedule pickup successfully Add.");
+      toast.success("Your Pickup is successfully Scheduled.");
       console.log(res);
       // Handle success if needed
     } catch (error) {

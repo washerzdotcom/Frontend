@@ -38,6 +38,7 @@
     "react-hook-form": "^7.47.0",
     "react-html5-camera-photo": "^1.5.11",
     "react-icons": "^4.12.0",
+    "react-leaflet": "^4.2.1",
     "react-modal": "^3.16.1",
     "react-multi-carousel": "^2.8.4",
     "react-multilevel-dropdown": "^4.0.0",

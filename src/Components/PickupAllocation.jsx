@@ -55,9 +55,9 @@ const PickupAllocation = ({ setActiveTab }) => {
   };
 
   useEffect(() => {
-    socket.on("addPickup", (data) => {
-      setData((prev) => [data, ...prev]);
-    });
+    // socket.on("addPickup", (data) => {
+    //   setData((prev) => [data, ...prev]);
+    // });
 
     getPickups();
     fetchPlants();

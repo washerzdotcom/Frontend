@@ -67,9 +67,9 @@ const SheduledDelivery = ({ type, setActiveTab }) => {
   };
 
   useEffect(() => {
-    socket.on("addSchedulePickup", (data) => {
-      setData((prev) => [data, ...prev]);
-    });
+    // socket.on("addSchedulePickup", (data) => {
+    //   setData((prev) => [data, ...prev]);
+    // });
     getPickups();
   }, [pageNumber]);
 

@@ -17,6 +17,7 @@ import axios from "../config.js";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
 import { HashLink } from "react-router-hash-link";
+import { Button } from 'react-bootstrap';
 
 function Login() {
   const [value, setValue] = useState({
@@ -180,14 +181,14 @@ function Login() {
                 onChange={handleUserTypeChange}
               />
 
-              <MDBBtn
+              <Button
                 style={{ backgroundColor: "#008080" }}
                 className="mb-4 px-5"
                 size="lg"
                 onClick={handleSubmit}
               >
                 Login
-              </MDBBtn>
+              </Button>
               <HashLink
                 to="/forgetpassword"
                 className="small text-muted"
