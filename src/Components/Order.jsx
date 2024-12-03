@@ -16,8 +16,9 @@ import Webcamera from "../Componentsnew/webcam/Webcamera";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import constant from "../constant";
+import { IoLocationSharp } from "react-icons/io5";
 
-const {  washrzserver } = constant;
+const { washrzserver } = constant;
 
 const { Option } = Select;
 // const socket = io(washrzserver); // Update with your backend URL
@@ -353,7 +354,13 @@ const CustomerDetails = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          tap here
+                          {/* tap here */}
+                          <IoLocationSharp
+                            style={{
+                              fontSize: "40px",
+                              cursor: "pointer",
+                            }}
+                          />
                         </a>
                       ) : (
                         "Location not available"

@@ -354,6 +354,7 @@ const LiveDelivery = ({ setActiveTab }) => {
                                   contactNo: user.Contact,
                                   customerName: user.Name,
                                   address: user.Address,
+                                  plantName: user.plantName,
                                   items: [],
                                   price: 0,
                                   id: user._id,

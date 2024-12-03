@@ -1,5 +1,5 @@
 const baseUrl = `https://live-server-101289.wati.io`;
-const washrzserver = false
+const washrzserver = true
   ? `http://localhost:5000`
   : // : `https://washrzbackend.vercel.app`;
     // `http://3.108.221.246:5000`;

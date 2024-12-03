@@ -598,10 +598,10 @@ function BillCart() {
   const handleSubmit = async () => {
     const fTotal = (total - total * (dis / 100)).toFixed(2);
     setLoader(true);
-    const plantName = "Delhi";
-    setCurrObj((prev) => {
-      return { ...prev, plantName: plantName };
-    });
+    // const plantName = "Delhi";
+    // setCurrObj((prev) => {
+    //   return { ...prev, plantName: plantName };
+    // });
 
     setCurrObj((prev) => {
       return { ...prev, price: fTotal };
