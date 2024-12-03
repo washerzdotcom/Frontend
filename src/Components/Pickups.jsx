@@ -24,7 +24,7 @@ const Pickups = () => {
 
   // Define allowed tabs based on roles
   const allowedTabs = {
-    rider: ["Live", "Completed", "Cancelled", "Rescheduled"],
+    rider: ["Live", "Rescheduled"],
     admin: ["Live", "Scheduled", "Cancelled", "Manual", "PickupAllocation"],
     plantManager: [], // No tabs for plant manager
   };

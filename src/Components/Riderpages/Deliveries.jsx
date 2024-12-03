@@ -20,11 +20,11 @@ const Deliveries = () => {
         className="mb-3 justify-content-center mt-2"
       >
         <Tab eventKey="Deliveries" title="Ready For Delivery"></Tab>
-        <Tab eventKey="Completed" title="Completed"></Tab>
+        {/* <Tab eventKey="Completed" title="Completed"></Tab> */}
         <Tab eventKey="Rescheduled" title="Rescheduled"></Tab>
       </Tabs>
       {activeTab === "Deliveries" && <Deliver setActiveTab={setActiveTab} />}
-      {activeTab === "Completed" && <Completed />}
+      {/* {activeTab === "Completed" && <Completed />} */}
       {activeTab === "Rescheduled" && <OrderReschedule />}
     </div>
   );

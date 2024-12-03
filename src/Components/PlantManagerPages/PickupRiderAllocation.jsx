@@ -88,6 +88,7 @@ const PickupRiderAllocation = () => {
       setShowModal(false);
       toast.success(`Pickup assigned to ${selectedRider}`);
     } catch (error) {
+      setShowModal(false);
       console.error("Failed to assign rider:", error);
       toast.error("Failed to assign rider.");
     }

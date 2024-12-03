@@ -5,6 +5,7 @@ import {
   Button,
   Dropdown,
   DropdownButton,
+  Form,
 } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
@@ -15,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
 
 const PickupAllocation = ({ setActiveTab }) => {
   const navigate = useNavigate();
@@ -25,8 +27,12 @@ const PickupAllocation = ({ setActiveTab }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [plants, setPlants] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showRiderModal, setShowRiderModal] = useState(false);
   const [selectedPickup, setSelectedPickup] = useState(null);
   const axiosPrivate = useAxiosPrivate();
+  const [riders, setRiders] = useState([]);
+  const [selectedRider, setSelectedRider] = useState("");
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const { auth } = useAuth();
 
   // Function to fetch pickups
@@ -95,6 +101,49 @@ const PickupAllocation = ({ setActiveTab }) => {
     setPageNumber(selectedPage.selected + 1);
   };
 
+  useEffect(() => {
+    const getRiders = async () => {
+      try {
+        const ridersData = await axiosPrivate.get("plant/getRiders");
+        setRiders(ridersData.data);
+      } catch (error) {
+        console.error("Failed to fetch riders:", error);
+      }
+    };
+
+    getRiders();
+  }, []);
+
+  const handleSelectRiderClick = (order) => {
+    setSelectedOrder(order);
+    setShowRiderModal(true);
+  };
+
+  const handleRiderSelection = async () => {
+    try {
+      await axiosPrivate.patch(`plant/assignPickupRider`, {
+        orderId: selectedOrder._id,
+        riderName: selectedRider,
+      });
+
+      // Update the data state instead of customer
+      setData((prevOrders) =>
+        prevOrders.map((order) =>
+          order._id === selectedOrder._id
+            ? { ...order, riderName: selectedRider }
+            : order
+        )
+      );
+
+      setShowRiderModal(false);
+      toast.success(`Pickup assigned to ${selectedRider}`);
+    } catch (error) {
+      setShowRiderModal(false);
+      console.error("Failed to assign rider:", error);
+      toast.error("Failed to assign rider.");
+    }
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -110,6 +159,7 @@ const PickupAllocation = ({ setActiveTab }) => {
                     <th>Address</th>
                     <th>Plant</th>
                     <th>Action</th>
+                    <th>Assign Rider</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -148,6 +198,28 @@ const PickupAllocation = ({ setActiveTab }) => {
                               </button>
                             )}
                           </td>
+                          <td>
+                            {user.riderName ? (
+                              // Show the Reallocate Rider button if riderName exists
+                              <button
+                                className="btn btn-outline-primary d-block mx-auto"
+                                style={{ width: "100%" }}
+                                onClick={() => handleSelectRiderClick(user)}
+                              >
+                                Reassign Rider
+                              </button>
+                            ) : (
+                              // Show the Allocate Rider button if riderName doesn't exist
+                              <button
+                                className="btn btn-outline-success mx-auto d-block m-1"
+                                style={{ width: "100%" }}
+                                onClick={() => handleSelectRiderClick(user)}
+                                disabled={!user.plantName}
+                              >
+                                Assign Rider
+                              </button>
+                            )}
+                          </td>
                         </tr>
                       );
                     })}
@@ -155,6 +227,40 @@ const PickupAllocation = ({ setActiveTab }) => {
               </Table>
             </div>
           </div>
+          {/* Rider Selection Modal */}
+          <Modal show={showRiderModal} onHide={() => setShowRiderModal(false)}>
+            <Modal.Header closeButton>
+              <Modal.Title>Select Rider</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form.Group controlId="riderSelect">
+                <Form.Label>Select a Rider</Form.Label>
+                <Form.Control
+                  as="select"
+                  value={selectedRider}
+                  onChange={(e) => setSelectedRider(e.target.value)}
+                >
+                  <option value="">Choose Rider</option>
+                  {riders.map((rider) => (
+                    <option key={rider._id} value={rider.name}>
+                      {rider.name}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="secondary"
+                onClick={() => setShowRiderModal(false)}
+              >
+                Close
+              </Button>
+              <Button variant="primary" onClick={handleRiderSelection}>
+                Assign Rider
+              </Button>
+            </Modal.Footer>
+          </Modal>
           {isLoading ? (
             <Loader loading={isLoading} />
           ) : (
